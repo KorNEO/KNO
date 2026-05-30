@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://korneo.github.io/KNO/sitemap.xml

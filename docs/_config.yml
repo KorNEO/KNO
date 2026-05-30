@@ -6,6 +6,10 @@ baseurl: "/KNO"
 markdown: kramdown
 permalink: /reports/:year/:month/:title/
 
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
 collections:
   reports:
     output: true
