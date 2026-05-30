@@ -15,7 +15,7 @@ title: KNO 소개
 
 - 사전을 만드는 일은 생각보다 훨씬 더 고된 작업입니다. 18세기 영국의 시인이자 평론가였던 새뮤얼 존슨은 <span style="color:#1e3a8a; font-size:1.05em; font-weight:500;">인류가 사전 편찬자를 '학문의 제자'가 아닌 '학문의 노예'로 대한다고 말하며</span> 스스로를 '겸손한 노역자(humble drudge)'라 칭한 뒤, 6명의 조수와 함께 8년 10개월에 걸쳐 4만 2천여 개의 표제어로 구성된 영어 사전을 완성했습니다. 그마저도 서문에서 "언어를 고정하려는 시도는 바람을 채찍질하는 것과 같다."라고 고백해야 했습니다(Johnson 1755/2004). 270년이 지난 지금도 사정은 크게 다르지 않아서, 사전, 특히 신어사전 편찬에는 막대한 시간과 비용, 인력이 필요합니다.<br><br>
 
-- 이에 본 프로젝트에서는 한국어 어휘 체계의 역동성을 관측하기 위해 <span style="color:#1e3a8a; font-size:1.05em; font-weight:500;">'말뭉치', '거대 언어 모델', '사전학 전문가'의 방법론적 삼각측량(methodological triangulation)에 기반한 신어 수집·분석 파이프라인</span>을 설계·개발했습니다. 신어 조사의 생산성과 효율성, 정확성을 높이면서도, 말뭉치 기반 언어 연구의 재현 가능성과 반증 가능성을 확보하는 것이 목표입니다(안진산 2026a).<br><br>
+- 이에 본 프로젝트에서는 한국어 어휘 체계의 역동성을 관측하기 위해 <span style="color:#1e3a8a; font-size:1.05em; font-weight:500;">'말뭉치', '거대 언어 모델', '사전학 전문가'의 방법론적 삼각측량(methodological triangulation)에 기반한 신어 수집·분석 파이프라인</span>을 설계·개발했습니다. 신어 조사의 생산성과 효율성, 정확성을 높이면서도, 말뭉치 기반 언어 연구의 재현 가능성과 반증 가능성을 확보하는 것이 목표입니다(안진산 2026ㄱ).<br><br>
 
 <img src="{{ '/img/Korean_Neologism_Extraction_Pipeline.png' | relative_url }}" alt="파이프라인" style="max-width:60%;">
 
@@ -40,7 +40,7 @@ title: KNO 소개
 <br>
 ## 두 번째 질문, LLM이 신어를 집필할 수 있을까요?<br>
 
-- 안진산(2026b)에서는 이 질문에 대한 실험 결과를 제시합니다.<br>
+- 안진산(2026ㄴ)에서는 이 질문에 대한 실험 결과를 제시합니다.<br>
 
 <img src="{{ '/img/example_1.png' | relative_url }}" alt="산점도" style="max-width:60%;">
 
@@ -70,8 +70,9 @@ title: KNO 소개
 <br>
 ### 참고문헌
 
-- 안진산(2026a), 「실시간 신어 추출 파이프라인의 설계와 검증」, 『한글』 제87권 제1호.
-- 안진산(2026b), 「거대언어모델을 활용한 신어 집필의 가능성과 쟁점」, 『한말연구』 제67권.
+- 안진산·송현주·최준·현영희·이수진·백미경·남길임(2026), 「'한국어 신어 관측 시스템'의 개발과 활용」, 『한국사전학』 제47호.
+- [안진산(2026ㄱ), 「실시간 신어 추출 파이프라인의 설계와 검증」, 『한글』 제87권 제1호.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003317307)
+- [안진산(2026ㄴ), 「거대언어모델을 활용한 신어 집필의 가능성과 쟁점」, 『한말연구』 제67권.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003313231)
 - [남길임·안진산·이수진(2025), 「말뭉치, LLMs, 인간 전문가의 협업을 통한 한국어 신어의 탐지」, 『한국어학』 108호.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003232209)
 - [남길임 외(2025), 『신어 2024』, 한국문화사.](https://product.kyobobook.co.kr/detail/S000218853741)
 - [남길임 외(2024), 『신어 2023』, 한국문화사.](https://product.kyobobook.co.kr/detail/S000215101540)
