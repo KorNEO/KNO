@@ -1,0 +1,25 @@
+title: KNO
+description: Korean Neologism Observatory
+url: "https://korneo.github.io"
+baseurl: "/KNO"
+
+markdown: kramdown
+permalink: /reports/:year/:month/:title/
+
+collections:
+  reports:
+    output: true
+    sort_by: date
+
+defaults:
+  - scope:
+      path: ""
+      type: "reports"
+    values:
+      layout: "report"
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
