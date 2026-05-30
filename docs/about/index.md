@@ -63,7 +63,7 @@ title: KNO 소개
 
 **[한국어 신어 제보하기](https://forms.gle/dDyAAq2G36aEEj5q9)**<br><br>
 
-**문의**: 경북대학교 언어정보연구센터 안진산 ([san@knu.ac.kr](mailto:san@knu.ac.kr))
+**문의**: 경북대학교 언어정보연구센터 안진산 ([koreanneology@gmail.com](mailto:koreanneology@gmail.com))
 <br>
 <br>
 <hr>
