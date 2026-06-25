@@ -584,24 +584,24 @@ permalink: /data.html
 
   <div class="source-tabs">
     <button class="source-tab active" data-source="combined">통합</button>
-    <button class="source-tab" data-source="naver_news">신문 말뭉치</button>
-    <button class="source-tab" data-source="youtube">영상 댓글 말뭉치</button>
+    <button class="source-tab" data-source="naver_news">&lt;네이버 뉴스 말뭉치&gt;</button>
+    <button class="source-tab" data-source="youtube">&lt;유튜브 말뭉치&gt;</button>
   </div>
 
   <div class="freq-filter-bar" id="freqFilterBar">
-    <label>신문 상대빈도
+    <label>&lt;네이버 뉴스 말뭉치&gt; 상대빈도
       <select id="filterNvOp" class="filter-op"><option value="gte">≥</option><option value="lte">≤</option><option value="eq">=</option></select>
       <input type="number" id="filterNvFreq" min="0" step="1">
     </label>
-    <label>영상 댓글 상대빈도
+    <label>&lt;유튜브 말뭉치&gt; 상대빈도
       <select id="filterYtOp" class="filter-op"><option value="gte">≥</option><option value="lte">≤</option><option value="eq">=</option></select>
       <input type="number" id="filterYtFreq" min="0" step="1">
     </label>
-    <label>신문 절대빈도
+    <label>&lt;네이버 뉴스 말뭉치&gt; 절대빈도
       <select id="filterNvAbsOp" class="filter-op"><option value="gte">≥</option><option value="lte">≤</option><option value="eq">=</option></select>
       <input type="number" id="filterNvAbsFreq" min="0" step="1">
     </label>
-    <label>영상 댓글 절대빈도
+    <label>&lt;유튜브 말뭉치&gt; 절대빈도
       <select id="filterYtAbsOp" class="filter-op"><option value="gte">≥</option><option value="lte">≤</option><option value="eq">=</option></select>
       <input type="number" id="filterYtAbsFreq" min="0" step="1">
     </label>
@@ -650,7 +650,7 @@ permalink: /data.html
     </div>
     <!-- 1) Monthly Frequency (통합: dual-line / 단일: single-line) -->
     <div class="modal-section" id="chartTFSection">
-      <h3 id="chartTFTitle">월별 빈도 추이</h3>
+      <h3 id="chartTFTitle">텍스트 장르별 상대빈도 추이</h3>
       <div class="chart-box">
         <div id="chartTFMax" class="tf-max-label"></div>
         <canvas id="chartTF"></canvas>
@@ -658,7 +658,7 @@ permalink: /data.html
     </div>
     <!-- 1-b) 통합 전용: 신문 월별 빈도 추이 -->
     <div class="modal-section" id="chartTFNvSection" style="display:none">
-      <h3>월별 빈도 추이 (신문)</h3>
+      <h3>텍스트 주제별 상대빈도 추이 (&lt;네이버 뉴스 말뭉치&gt;)</h3>
       <div class="chart-box">
         <div id="chartTFNvMax" class="tf-max-label"></div>
         <canvas id="chartTFNv"></canvas>
@@ -666,7 +666,7 @@ permalink: /data.html
     </div>
     <!-- 1-c) 통합 전용: 웹 월별 빈도 추이 -->
     <div class="modal-section" id="chartTFYtSection" style="display:none">
-      <h3>월별 빈도 추이 (영상 댓글)</h3>
+      <h3>텍스트 주제별 상대빈도 추이 (&lt;유튜브 말뭉치&gt;)</h3>
       <div class="chart-box">
         <div id="chartTFYtMax" class="tf-max-label"></div>
         <canvas id="chartTFYt"></canvas>
@@ -674,7 +674,7 @@ permalink: /data.html
     </div>
     <!-- 2) Topic Distribution (통합: 신문+웹 각각 / 단일: 해당 소스) -->
     <div class="modal-section" id="chartPMWSection">
-      <h3 id="chartPMWTitle">주제별 분포</h3>
+      <h3 id="chartPMWTitle">텍스트 주제별 분포</h3>
       <div class="chart-box chart-topic">
         <div id="chartPMWRank" class="pmw-rank"></div>
         <canvas id="chartPMW"></canvas>
@@ -682,7 +682,7 @@ permalink: /data.html
     </div>
     <!-- 2-b) 통합 전용: 웹 주제별 분포 -->
     <div class="modal-section" id="chartPMWYtSection" style="display:none">
-      <h3>주제별 분포 (영상 댓글)</h3>
+      <h3>텍스트 주제별 분포 (&lt;유튜브 말뭉치&gt;)</h3>
       <div class="chart-box chart-topic">
         <div id="chartPMWYtRank" class="pmw-rank"></div>
         <canvas id="chartPMWYt"></canvas>
@@ -745,7 +745,7 @@ var SRC = {
     hasTitle: false, showGalaxy: true,
   },
   naver_news: {
-    label: '신문 말뭉치',
+    label: '<네이버 뉴스 말뭉치>',
     sections: ['정치','경제','사회','생활/문화','IT/과학','세계','연예','스포츠'],
     sectionLabels: null,
     pressCountKey: '출현 매체 수', pressCount: '사용 매체 비율',
@@ -757,7 +757,7 @@ var SRC = {
               'rgba(194,65,12,0.72)','rgba(202,138,4,0.72)','rgba(15,118,110,0.72)','rgba(190,18,60,0.72)'],
   },
   youtube: {
-    label: '영상 댓글 말뭉치',
+    label: '<유튜브 말뭉치>',
     sections: ['news_and_politics','gaming','people_and_blogs','entertainment','music','comedy','sports',
                'education','auto_and_vehicles','howto_and_style','film','travel_and_events',
                'science_and_technology','pets_and_animals','nonprofits_and_activism'],
@@ -1114,19 +1114,19 @@ function initTable() {
     //       4=신문빈도,5=신문순위,6=웹빈도,7=웹순위,8=순위차이,
     //       9=매체비율,10=화자비율,11=출현장르수,12=출현주제수,13=DP,14~25=월별
     heads = ['최초 출현일','표제어','최초 출현 기사문','총 상대빈도',
-             '신문 상대빈도','신문 순위','영상 댓글 상대빈도','영상 댓글 순위','순위 차이',
+             '&lt;네이버 뉴스 말뭉치&gt; 상대빈도','&lt;네이버 뉴스 말뭉치&gt; 순위','&lt;유튜브 말뭉치&gt; 상대빈도','&lt;유튜브 말뭉치&gt; 순위','순위 차이',
              '사용 매체 비율','사용 화자 비율','출현 장르 수','출현 주제 수','DP'];
-    headTitles = ['','','',FREQ_TIP,FREQ_TIP,'',FREQ_TIP,'','|신문 순위 - 영상 댓글 순위|','','','신문 말뭉치(1) + 영상 댓글 말뭉치(1)','신문 8 + 영상 댓글 15 = 23개 주제',DP_TIP + ' — 23개 주제 기준 (신문 8 + 영상 댓글 15)'];
-    MONTHS.forEach(function(m) { heads.push(m); headTitles.push(FREQ_TIP + ' (신문)'); });
-    heads.push('신문 절대빈도', '영상 댓글 절대빈도');
-    headTitles.push('단어빈도_전체 (신문)', '단어빈도_전체 (영상 댓글)');
+    headTitles = ['','','',FREQ_TIP,FREQ_TIP,'',FREQ_TIP,'','|&lt;네이버 뉴스 말뭉치&gt; 순위 - &lt;유튜브 말뭉치&gt; 순위|','','','&lt;네이버 뉴스 말뭉치&gt;(1) + &lt;유튜브 말뭉치&gt;(1)','&lt;네이버 뉴스 말뭉치&gt; 8 + &lt;유튜브 말뭉치&gt; 15 = 23개 주제',DP_TIP + ' — 23개 주제 기준 (&lt;네이버 뉴스 말뭉치&gt; 8 + &lt;유튜브 말뭉치&gt; 15)'];
+    MONTHS.forEach(function(m) { heads.push(m); headTitles.push(FREQ_TIP + ' (&lt;네이버 뉴스 말뭉치&gt;)'); });
+    heads.push('&lt;네이버 뉴스 말뭉치&gt; 절대빈도', '&lt;유튜브 말뭉치&gt; 절대빈도');
+    headTitles.push('단어빈도_전체 (&lt;네이버 뉴스 말뭉치&gt;)', '단어빈도_전체 (&lt;유튜브 말뭉치&gt;)');
   } else {
     heads = ['최초 출현일','표제어',cfg.firstText,'절대빈도','상대빈도'];
     headTitles = ['','','','절대빈도',FREQ_TIP];
     if (cfg.hasTitle) { heads.push('제목 빈도 비율'); headTitles.push(''); }
     var numSec = cfg.sections ? cfg.sections.length : 0;
     heads.push(cfg.pressCount,'출현 장르 수','출현 주제 수','DP');
-    headTitles.push('','신문 말뭉치(1) + 영상 댓글 말뭉치(1)', numSec + '개 주제',DP_TIP);
+    headTitles.push('','&lt;네이버 뉴스 말뭉치&gt;(1) + &lt;유튜브 말뭉치&gt;(1)', numSec + '개 주제',DP_TIP);
     MONTHS.forEach(function(m) { heads.push(m); headTitles.push(FREQ_TIP); });
   }
 
@@ -1212,9 +1212,9 @@ function initTable() {
         '<span class="neo-link" data-neo="' + d['표제어'] + '">' + d['표제어'] + '</span>',
         titleText,
         '<span class="tf-total">' + Math.round(combPhmw).toLocaleString() + '</span>',
-        '<span class="tf-total">' + Math.round(nvPhmw).toLocaleString() + '</span>',
+        '<span class="tf-total" style="color:#03C75A">' + Math.round(nvPhmw).toLocaleString() + '</span>',
         '<span class="tf-meta">' + nvRank + '위</span>',
-        '<span class="tf-total" style="color:#34d399">' + Math.round(ytPhmw).toLocaleString() + '</span>',
+        '<span class="tf-total" style="color:#FF0000">' + Math.round(ytPhmw).toLocaleString() + '</span>',
         '<span class="tf-meta">' + ytRank + '위</span>',
         '<span class="tf-meta">' + String(Math.abs(nvRank - ytRank)).padStart(3, '0') + '</span>',
         '<div class="press-bar" data-tip="' + d['nv_press'] + ' / ' + nvTotalPress + ' (' + d['nv_press_ratio'] + '%)"><div class="press-bar-fill" style="width:' + (d['nv_press'] / nvTotalPress * 100).toFixed(1) + '%"></div><span>' + d['nv_press_ratio'] + '%</span></div>',
@@ -1298,10 +1298,10 @@ function initTable() {
   if (isComb) {
     sortOpts =
       '<option value="freq-desc" selected>총빈도순</option>' +
-      '<option value="nv-freq-desc">빈도순(신문)</option>' +
-      '<option value="yt-freq-desc">빈도순(영상 댓글)</option>' +
-      '<option value="nv-skew">신문 편중순</option>' +
-      '<option value="yt-skew">영상 댓글 편중순</option>' +
+      '<option value="nv-freq-desc">빈도순(&lt;네이버 뉴스 말뭉치&gt;)</option>' +
+      '<option value="yt-freq-desc">빈도순(&lt;유튜브 말뭉치&gt;)</option>' +
+      '<option value="nv-skew">&lt;네이버 뉴스 말뭉치&gt; 편중순</option>' +
+      '<option value="yt-skew">&lt;유튜브 말뭉치&gt; 편중순</option>' +
       '<option value="rank-diff">순위 차이순</option>' +
       '<option value="date-asc">오래된순</option>' +
       '<option value="name-asc">가나다순</option>';
@@ -1590,18 +1590,18 @@ function openModal(d) {
     var _nvTR = d._nv ? (d._nv['단어빈도_제목_비율'] || 0) : 0;
     var _ytTR = d._yt ? (d._yt['단어빈도_제목_비율'] || 0) : 0;
     // 1행: 신문(문어)
-    cards += '<div class="stat-card"><div class="stat-value">' + d['nv_tf'].toLocaleString() + '</div><div class="stat-label">신문 절대빈도</div></div>';
-    cards += '<div class="stat-card"><div class="stat-value">' + _nvPhmw.toLocaleString() + '</div><div class="stat-label">신문 상대빈도</div></div>';
-    cards += '<div class="stat-card"><div class="stat-value">' + _nvTR.toFixed(1) + '<span class="stat-unit">%</span></div><div class="stat-label">신문 제목 비율</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#03C75A">' + d['nv_tf'].toLocaleString() + '</div><div class="stat-label">&lt;네이버 뉴스 말뭉치&gt; 절대빈도</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#03C75A">' + _nvPhmw.toLocaleString() + '</div><div class="stat-label">&lt;네이버 뉴스 말뭉치&gt; 상대빈도</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#03C75A">' + _nvTR.toFixed(1) + '<span class="stat-unit">%</span></div><div class="stat-label">&lt;네이버 뉴스 말뭉치&gt; 제목 비율</div></div>';
     // 2행: 영상 댓글
-    cards += '<div class="stat-card"><div class="stat-value" style="color:#34d399">' + d['yt_tf'].toLocaleString() + '</div><div class="stat-label">영상 댓글 절대빈도</div></div>';
-    cards += '<div class="stat-card"><div class="stat-value" style="color:#34d399">' + _ytPhmw.toLocaleString() + '</div><div class="stat-label">영상 댓글 상대빈도</div></div>';
-    cards += '<div class="stat-card"><div class="stat-value" style="color:#34d399">' + _ytTR.toFixed(1) + '<span class="stat-unit">%</span></div><div class="stat-label">영상 댓글 제목 비율</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#FF0000">' + d['yt_tf'].toLocaleString() + '</div><div class="stat-label">&lt;유튜브 말뭉치&gt; 절대빈도</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#FF0000">' + _ytPhmw.toLocaleString() + '</div><div class="stat-label">&lt;유튜브 말뭉치&gt; 상대빈도</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#FF0000">' + _ytTR.toFixed(1) + '<span class="stat-unit">%</span></div><div class="stat-label">&lt;유튜브 말뭉치&gt; 제목 비율</div></div>';
     // 순위 차이 카드
     var _nvR = d._nvRank || 0, _ytR = d._ytRank || 0;
     var _rankDiff = Math.abs(_nvR - _ytR);
-    var _skewLabel = _nvR < _ytR ? '신문 우세' : (_ytR < _nvR ? '영상 댓글 우세' : '동일');
-    cards += '<div class="stat-card"><div class="stat-value">' + _rankDiff.toLocaleString() + '</div><div class="stat-pct">' + _skewLabel + '</div><div class="stat-label">순위 차이</div><div class="stat-sub">신문 ' + _nvR.toLocaleString() + '위 · 영상 댓글 ' + _ytR.toLocaleString() + '위</div></div>';
+    var _skewLabel = _nvR < _ytR ? '&lt;네이버 뉴스 말뭉치&gt; 우세' : (_ytR < _nvR ? '&lt;유튜브 말뭉치&gt; 우세' : '동일');
+    cards += '<div class="stat-card"><div class="stat-value">' + _rankDiff.toLocaleString() + '</div><div class="stat-pct">' + _skewLabel + '</div><div class="stat-label">순위 차이</div><div class="stat-sub">&lt;네이버 뉴스 말뭉치&gt; ' + _nvR.toLocaleString() + '위 · &lt;유튜브 말뭉치&gt; ' + _ytR.toLocaleString() + '위</div></div>';
     cards += '<div class="stat-card"><div class="stat-value">' + d['nv_press'].toLocaleString() + '<span class="stat-unit"> / ' + nvTotalPress.toLocaleString() + '</span></div><div class="stat-pct">' + d['nv_press_ratio'] + '%</div><div class="stat-label">사용 매체 수</div></div>';
     cards += '<div class="stat-card"><div class="stat-value">' + d['yt_speaker'].toLocaleString() + '<span class="stat-unit"> / ' + ytTotalSpeaker.toLocaleString() + '</span></div><div class="stat-pct">' + d['yt_speaker_ratio'] + '%</div><div class="stat-label">사용 화자 수</div></div>';
     cards += '<div class="stat-card"><div class="stat-value">' + (d['출현 주제 수'] || 0) + '<span class="stat-unit"> / 23</span></div><div class="stat-pct">' + ((d['출현 주제 수'] || 0) / 23 * 100).toFixed(1) + '%</div><div class="stat-label">출현 주제 수</div></div>';
@@ -1609,8 +1609,8 @@ function openModal(d) {
     var combDP = d['DP'];
     var nvDP = d['nv_dp'];
     var ytDP = d['yt_dp'];
-    cards += '<div class="stat-card" title="' + DP_TIP + '"><div class="stat-value">' + (nvDP != null ? nvDP.toFixed(4) : '-') + '</div><div class="stat-pct"><div class="dp-bar" style="margin:0 auto"><div class="dp-bar-fill" style="width:' + (nvDP != null ? (nvDP * 100).toFixed(1) : '0') + '%"></div></div></div><div class="stat-label">DP (신문 8주제)</div></div>';
-    cards += '<div class="stat-card" title="' + DP_TIP + '"><div class="stat-value">' + (ytDP != null ? ytDP.toFixed(4) : '-') + '</div><div class="stat-pct"><div class="dp-bar" style="margin:0 auto"><div class="dp-bar-fill" style="width:' + (ytDP != null ? (ytDP * 100).toFixed(1) : '0') + '%"></div></div></div><div class="stat-label">DP (영상 댓글 15주제)</div></div>';
+    cards += '<div class="stat-card" title="' + DP_TIP + '"><div class="stat-value">' + (nvDP != null ? nvDP.toFixed(4) : '-') + '</div><div class="stat-pct"><div class="dp-bar" style="margin:0 auto"><div class="dp-bar-fill" style="width:' + (nvDP != null ? (nvDP * 100).toFixed(1) : '0') + '%"></div></div></div><div class="stat-label">DP (&lt;네이버 뉴스 말뭉치&gt; 8주제)</div></div>';
+    cards += '<div class="stat-card" title="' + DP_TIP + '"><div class="stat-value">' + (ytDP != null ? ytDP.toFixed(4) : '-') + '</div><div class="stat-pct"><div class="dp-bar" style="margin:0 auto"><div class="dp-bar-fill" style="width:' + (ytDP != null ? (ytDP * 100).toFixed(1) : '0') + '%"></div></div></div><div class="stat-label">DP (&lt;유튜브 말뭉치&gt; 15주제)</div></div>';
     cards += '<div class="stat-card" title="' + DP_TIP + '"><div class="stat-value">' + (combDP != null ? combDP.toFixed(4) : '-') + '</div><div class="stat-pct"><div class="dp-bar" style="margin:0 auto"><div class="dp-bar-fill" style="width:' + (combDP != null ? (combDP * 100).toFixed(1) : '0') + '%"></div></div></div><div class="stat-label">DP (통합 23주제)</div></div>';
   } else {
     var sd = DATA[src];
@@ -1628,7 +1628,7 @@ function openModal(d) {
     cards += '<div class="stat-card"><div class="stat-value">' + pc.toLocaleString() + '<span class="stat-unit"> / ' + totalPress.toLocaleString() + '</span></div><div class="stat-pct">' + pr + '%</div><div class="stat-label">사용 ' + cfg.pressLabel + ' 수</div></div>';
     cards += '<div class="stat-card"><div class="stat-value">' + (d['출현 주제 수'] || 0) + '<span class="stat-unit"> / ' + numSections + '</span></div><div class="stat-pct">' + (d['출현 주제 비율'] || 0) + '%</div><div class="stat-label">출현 주제 수</div></div>';
     cards += '<div class="stat-card"><div class="stat-value">' + (d['출현 장르 수'] || 0) + '<span class="stat-unit"> / 2</span></div><div class="stat-pct">' + ((d['출현 장르 수'] || 0) * 50) + '%</div><div class="stat-label">출현 장르 수</div></div>';
-    var dpLabel = src === 'naver_news' ? 'DP (신문 ' + numSections + '주제)' : 'DP (영상 댓글 ' + numSections + '주제)';
+    var dpLabel = src === 'naver_news' ? 'DP (&lt;네이버 뉴스 말뭉치&gt; ' + numSections + '주제)' : 'DP (&lt;유튜브 말뭉치&gt; ' + numSections + '주제)';
     cards += '<div class="stat-card" title="' + DP_TIP + '"><div class="stat-value">' + (d['DP'] != null ? d['DP'].toFixed(4) : '-') + '</div><div class="stat-pct"><div class="dp-bar" style="margin:0 auto"><div class="dp-bar-fill" style="width:' + (d['DP'] != null ? (d['DP'] * 100).toFixed(1) : '0') + '%"></div></div></div><div class="stat-label">' + dpLabel + '</div></div>';
   }
   document.getElementById('statCards').innerHTML = cards;
@@ -1642,7 +1642,7 @@ function openModal(d) {
       galaxySec.style.display = '';
       var nvPC = nvD['출현 매체 수'] || 0;
       var nvPR = nvD['출현 매체 비율'] || 0;
-      document.getElementById('galaxyTitle').textContent = '사용 매체 수 (신문)';
+      document.getElementById('galaxyTitle').textContent = '사용 매체 수 (<네이버 뉴스 말뭉치>)';
       document.getElementById('galaxySummary').innerHTML =
         '전체 <span class="galaxy-total">' + DATA.naver_news.allPress.length + '</span>개 매체 중 ' +
         '<span class="galaxy-active">' + nvPC + '</span>개 매체(' + nvPR + '%)에서 출현';
@@ -1677,7 +1677,7 @@ function openModal(d) {
     var ytTotal = DATA.youtube.totalPress || 1;
     var ytSR = (ytSC / ytTotal * 100);
     speakerSec.style.display = '';
-    document.getElementById('speakerTitle').textContent = '사용 화자 수 (영상 댓글)';
+    document.getElementById('speakerTitle').textContent = '사용 화자 수 (<유튜브 말뭉치>)';
     document.getElementById('speakerSummary').innerHTML =
       '전체 <span class="galaxy-total">' + ytTotal.toLocaleString() + '</span>명 화자 중 ' +
       '<span class="galaxy-active">' + ytSC.toLocaleString() + '</span>명(' +ytSR.toFixed(5) + '%)이 사용';
@@ -1796,11 +1796,11 @@ function openModal(d) {
     var ytMonthly = d['yt_monthly'].map(function(v) { return Math.round(v); });
 
     // 1) 통합 (dual-line)
-    document.getElementById('chartTFTitle').textContent = '월별 빈도 추이 (통합)';
-    document.getElementById('chartTFMax').innerHTML = _maxLabel(nvMonthly, '신문') + ' · ' + _maxLabel(ytMonthly, '영상 댓글').replace('<span>', '<span style="color:#34d399">');
+    document.getElementById('chartTFTitle').textContent = '텍스트 장르별 상대빈도 추이';
+    document.getElementById('chartTFMax').innerHTML = _maxLabel(nvMonthly, '&lt;네이버 뉴스 말뭉치&gt;') + ' · ' + _maxLabel(ytMonthly, '&lt;유튜브 말뭉치&gt;').replace('<span>', '<span style="color:#FF0000">');
     chartTF = new Chart(document.getElementById('chartTF'), {
       type: 'line',
-      data: { labels: MONTHS, datasets: [_ds(nvMonthly, '#1e3a8a', '신문 말뭉치'), _ds(ytMonthly, '#34d399', '영상 댓글 말뭉치')] },
+      data: { labels: MONTHS, datasets: [_ds(nvMonthly, '#03C75A', '<네이버 뉴스 말뭉치>'), _ds(ytMonthly, '#FF0000', '<유튜브 말뭉치>')] },
       options: _lineOpts(true)
     });
 
@@ -1810,7 +1810,7 @@ function openModal(d) {
     var nvTopicDS = _buildTopicDS(d._nv ? d._nv['주제별_월별_상대빈도'] : null, SRC.naver_news);
     chartTFNv = new Chart(document.getElementById('chartTFNv'), {
       type: 'line',
-      data: { labels: MONTHS, datasets: nvTopicDS.length > 0 ? nvTopicDS : [_ds(nvMonthly, '#1e3a8a', '신문')] },
+      data: { labels: MONTHS, datasets: nvTopicDS.length > 0 ? nvTopicDS : [_ds(nvMonthly, '#03C75A', '<네이버 뉴스 말뭉치>')] },
       options: nvTopicDS.length > 0 ? _topicLineOpts() : _lineOpts(false)
     });
 
@@ -1820,11 +1820,11 @@ function openModal(d) {
     var ytTopicDS = _buildTopicDS(d._yt ? d._yt['주제별_월별_상대빈도'] : null, SRC.youtube);
     chartTFYt = new Chart(document.getElementById('chartTFYt'), {
       type: 'line',
-      data: { labels: MONTHS, datasets: ytTopicDS.length > 0 ? ytTopicDS : [_ds(ytMonthly, '#34d399', '영상 댓글')] },
+      data: { labels: MONTHS, datasets: ytTopicDS.length > 0 ? ytTopicDS : [_ds(ytMonthly, '#FF0000', '<유튜브 말뭉치>')] },
       options: ytTopicDS.length > 0 ? _topicLineOpts() : _lineOpts(false)
     });
   } else {
-    document.getElementById('chartTFTitle').textContent = '월별 빈도 추이 (주제별)';
+    document.getElementById('chartTFTitle').textContent = '텍스트 주제별 상대빈도 추이';
     document.getElementById('chartTFNvSection').style.display = 'none';
     document.getElementById('chartTFYtSection').style.display = 'none';
     var monthlyFreq = d['월별 상대빈도'].map(function(v) { return Math.round(v); });
@@ -1833,7 +1833,7 @@ function openModal(d) {
     var topicDS = _buildTopicDS(d['주제별_월별_상대빈도'], SRC[srcKey]);
     chartTF = new Chart(document.getElementById('chartTF'), {
       type: 'line',
-      data: { labels: MONTHS, datasets: topicDS.length > 0 ? topicDS : [_ds(monthlyFreq, '#1e3a8a', '상대빈도')] },
+      data: { labels: MONTHS, datasets: topicDS.length > 0 ? topicDS : [_ds(monthlyFreq, (currentSource === 'youtube' ? '#FF0000' : '#03C75A'), '상대빈도')] },
       options: topicDS.length > 0 ? _topicLineOpts() : _lineOpts(false)
     });
   }
@@ -1865,7 +1865,7 @@ function openModal(d) {
 
   if (isComb) {
     // 신문 주제별 분포
-    document.getElementById('chartPMWTitle').textContent = '주제별 분포 (신문)';
+    document.getElementById('chartPMWTitle').textContent = '텍스트 주제별 분포 (<네이버 뉴스 말뭉치>)';
     var nvRec = d['_nv'];
     var nvCfg = SRC.naver_news;
     var nvSections = nvCfg.sections;
@@ -1898,7 +1898,7 @@ function openModal(d) {
       options: _donutOpts(ytPmwTotal)
     });
   } else {
-    document.getElementById('chartPMWTitle').textContent = '주제별 분포';
+    document.getElementById('chartPMWTitle').textContent = '텍스트 주제별 분포';
     document.getElementById('chartPMWYtSection').style.display = 'none';
     var sections = cfg.sections;
     var sectionDisplayLabels = sections.map(function(s) { return secLabel(src, s); });
@@ -1997,8 +1997,8 @@ function renderCollocates(neoKey) {
   if (isComb) {
     srcTabsEl.innerHTML =
       '<button class="tab-btn active" data-src="combined">통합</button>' +
-      '<button class="tab-btn" data-src="naver_news">신문</button>' +
-      '<button class="tab-btn" data-src="youtube">영상 댓글</button>';
+      '<button class="tab-btn" data-src="naver_news">&lt;네이버 뉴스 말뭉치&gt;</button>' +
+      '<button class="tab-btn" data-src="youtube">&lt;유튜브 말뭉치&gt;</button>';
   } else {
     srcTabsEl.innerHTML = '';
   }
@@ -2256,8 +2256,8 @@ function renderNgrams(neoKey) {
   if (isComb) {
     srcTabsEl.innerHTML =
       '<button class="tab-btn active" data-src="combined">통합</button>' +
-      '<button class="tab-btn" data-src="naver_news">신문</button>' +
-      '<button class="tab-btn" data-src="youtube">영상 댓글</button>';
+      '<button class="tab-btn" data-src="naver_news">&lt;네이버 뉴스 말뭉치&gt;</button>' +
+      '<button class="tab-btn" data-src="youtube">&lt;유튜브 말뭉치&gt;</button>';
   } else {
     srcTabsEl.innerHTML = '';
   }
@@ -2368,19 +2368,19 @@ function renderExamples(neoKey, headword) {
     var html = '';
     // 신문 말뭉치 용례
     if (nvItems.length > 0) {
-      html += '<div class="source-divider">신문 말뭉치 용례 (' + nvItems.length + '건)</div>';
+      html += '<div class="source-divider">&lt;네이버 뉴스 말뭉치&gt; 용례 (' + nvItems.length + '건)</div>';
       html += _renderExampleItems(nvItems, false, re);
     } else {
-      html += '<div class="source-divider">신문 말뭉치 용례</div>';
-      html += '<p class="no-data">신문 말뭉치 용례 없음</p>';
+      html += '<div class="source-divider">&lt;네이버 뉴스 말뭉치&gt; 용례</div>';
+      html += '<p class="no-data">&lt;네이버 뉴스 말뭉치&gt; 용례 없음</p>';
     }
     // 영상 댓글 말뭉치 용례
     if (ytItems.length > 0) {
-      html += '<div class="source-divider">영상 댓글 말뭉치 용례 (' + ytItems.length + '건)</div>';
+      html += '<div class="source-divider">&lt;유튜브 말뭉치&gt; 용례 (' + ytItems.length + '건)</div>';
       html += _renderExampleItems(ytItems, true, re);
     } else {
-      html += '<div class="source-divider">영상 댓글 말뭉치 용례</div>';
-      html += '<p class="no-data">영상 댓글 말뭉치 용례 없음</p>';
+      html += '<div class="source-divider">&lt;유튜브 말뭉치&gt; 용례</div>';
+      html += '<p class="no-data">&lt;유튜브 말뭉치&gt; 용례 없음</p>';
     }
     el.innerHTML = html;
   } else {
