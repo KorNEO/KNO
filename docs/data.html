@@ -658,7 +658,7 @@ permalink: /data.html
     </div>
     <!-- 1-b) 통합 전용: 신문 월별 빈도 추이 -->
     <div class="modal-section" id="chartTFNvSection" style="display:none">
-      <h3>텍스트 주제별 상대빈도 추이 (&lt;네이버 뉴스 말뭉치&gt;)</h3>
+      <h3>텍스트 주제별 상대빈도 추이</h3>
       <div class="chart-box">
         <div id="chartTFNvMax" class="tf-max-label"></div>
         <canvas id="chartTFNv"></canvas>
@@ -666,7 +666,7 @@ permalink: /data.html
     </div>
     <!-- 1-c) 통합 전용: 웹 월별 빈도 추이 -->
     <div class="modal-section" id="chartTFYtSection" style="display:none">
-      <h3>텍스트 주제별 상대빈도 추이 (&lt;유튜브 말뭉치&gt;)</h3>
+      <h3>텍스트 주제별 상대빈도 추이</h3>
       <div class="chart-box">
         <div id="chartTFYtMax" class="tf-max-label"></div>
         <canvas id="chartTFYt"></canvas>
@@ -1212,9 +1212,9 @@ function initTable() {
         '<span class="neo-link" data-neo="' + d['표제어'] + '">' + d['표제어'] + '</span>',
         titleText,
         '<span class="tf-total">' + Math.round(combPhmw).toLocaleString() + '</span>',
-        '<span class="tf-total" style="color:#03C75A">' + Math.round(nvPhmw).toLocaleString() + '</span>',
+        '<span class="tf-total" style="color:#4BD37F">' + Math.round(nvPhmw).toLocaleString() + '</span>',
         '<span class="tf-meta">' + nvRank + '위</span>',
-        '<span class="tf-total" style="color:#FF0000">' + Math.round(ytPhmw).toLocaleString() + '</span>',
+        '<span class="tf-total" style="color:#FB7171">' + Math.round(ytPhmw).toLocaleString() + '</span>',
         '<span class="tf-meta">' + ytRank + '위</span>',
         '<span class="tf-meta">' + String(Math.abs(nvRank - ytRank)).padStart(3, '0') + '</span>',
         '<div class="press-bar" data-tip="' + d['nv_press'] + ' / ' + nvTotalPress + ' (' + d['nv_press_ratio'] + '%)"><div class="press-bar-fill" style="width:' + (d['nv_press'] / nvTotalPress * 100).toFixed(1) + '%"></div><span>' + d['nv_press_ratio'] + '%</span></div>',
@@ -1590,13 +1590,13 @@ function openModal(d) {
     var _nvTR = d._nv ? (d._nv['단어빈도_제목_비율'] || 0) : 0;
     var _ytTR = d._yt ? (d._yt['단어빈도_제목_비율'] || 0) : 0;
     // 1행: 신문(문어)
-    cards += '<div class="stat-card"><div class="stat-value" style="color:#03C75A">' + d['nv_tf'].toLocaleString() + '</div><div class="stat-label">&lt;네이버 뉴스 말뭉치&gt; 절대빈도</div></div>';
-    cards += '<div class="stat-card"><div class="stat-value" style="color:#03C75A">' + _nvPhmw.toLocaleString() + '</div><div class="stat-label">&lt;네이버 뉴스 말뭉치&gt; 상대빈도</div></div>';
-    cards += '<div class="stat-card"><div class="stat-value" style="color:#03C75A">' + _nvTR.toFixed(1) + '<span class="stat-unit">%</span></div><div class="stat-label">&lt;네이버 뉴스 말뭉치&gt; 제목 비율</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#4BD37F">' + d['nv_tf'].toLocaleString() + '</div><div class="stat-label">&lt;네이버 뉴스 말뭉치&gt; 절대빈도</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#4BD37F">' + _nvPhmw.toLocaleString() + '</div><div class="stat-label">&lt;네이버 뉴스 말뭉치&gt; 상대빈도</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#4BD37F">' + _nvTR.toFixed(1) + '<span class="stat-unit">%</span></div><div class="stat-label">&lt;네이버 뉴스 말뭉치&gt; 제목 비율</div></div>';
     // 2행: 영상 댓글
-    cards += '<div class="stat-card"><div class="stat-value" style="color:#FF0000">' + d['yt_tf'].toLocaleString() + '</div><div class="stat-label">&lt;유튜브 말뭉치&gt; 절대빈도</div></div>';
-    cards += '<div class="stat-card"><div class="stat-value" style="color:#FF0000">' + _ytPhmw.toLocaleString() + '</div><div class="stat-label">&lt;유튜브 말뭉치&gt; 상대빈도</div></div>';
-    cards += '<div class="stat-card"><div class="stat-value" style="color:#FF0000">' + _ytTR.toFixed(1) + '<span class="stat-unit">%</span></div><div class="stat-label">&lt;유튜브 말뭉치&gt; 제목 비율</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#FB7171">' + d['yt_tf'].toLocaleString() + '</div><div class="stat-label">&lt;유튜브 말뭉치&gt; 절대빈도</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#FB7171">' + _ytPhmw.toLocaleString() + '</div><div class="stat-label">&lt;유튜브 말뭉치&gt; 상대빈도</div></div>';
+    cards += '<div class="stat-card"><div class="stat-value" style="color:#FB7171">' + _ytTR.toFixed(1) + '<span class="stat-unit">%</span></div><div class="stat-label">&lt;유튜브 말뭉치&gt; 제목 비율</div></div>';
     // 순위 차이 카드
     var _nvR = d._nvRank || 0, _ytR = d._ytRank || 0;
     var _rankDiff = Math.abs(_nvR - _ytR);
@@ -1797,10 +1797,10 @@ function openModal(d) {
 
     // 1) 통합 (dual-line)
     document.getElementById('chartTFTitle').textContent = '텍스트 장르별 상대빈도 추이';
-    document.getElementById('chartTFMax').innerHTML = _maxLabel(nvMonthly, '&lt;네이버 뉴스 말뭉치&gt;') + ' · ' + _maxLabel(ytMonthly, '&lt;유튜브 말뭉치&gt;').replace('<span>', '<span style="color:#FF0000">');
+    document.getElementById('chartTFMax').innerHTML = _maxLabel(nvMonthly, '&lt;네이버 뉴스 말뭉치&gt;') + ' · ' + _maxLabel(ytMonthly, '&lt;유튜브 말뭉치&gt;').replace('<span>', '<span style="color:#FB7171">');
     chartTF = new Chart(document.getElementById('chartTF'), {
       type: 'line',
-      data: { labels: MONTHS, datasets: [_ds(nvMonthly, '#03C75A', '<네이버 뉴스 말뭉치>'), _ds(ytMonthly, '#FF0000', '<유튜브 말뭉치>')] },
+      data: { labels: MONTHS, datasets: [_ds(nvMonthly, '#4BD37F', '<네이버 뉴스 말뭉치>'), _ds(ytMonthly, '#FB7171', '<유튜브 말뭉치>')] },
       options: _lineOpts(true)
     });
 
@@ -1810,7 +1810,7 @@ function openModal(d) {
     var nvTopicDS = _buildTopicDS(d._nv ? d._nv['주제별_월별_상대빈도'] : null, SRC.naver_news);
     chartTFNv = new Chart(document.getElementById('chartTFNv'), {
       type: 'line',
-      data: { labels: MONTHS, datasets: nvTopicDS.length > 0 ? nvTopicDS : [_ds(nvMonthly, '#03C75A', '<네이버 뉴스 말뭉치>')] },
+      data: { labels: MONTHS, datasets: nvTopicDS.length > 0 ? nvTopicDS : [_ds(nvMonthly, '#4BD37F', '<네이버 뉴스 말뭉치>')] },
       options: nvTopicDS.length > 0 ? _topicLineOpts() : _lineOpts(false)
     });
 
@@ -1820,7 +1820,7 @@ function openModal(d) {
     var ytTopicDS = _buildTopicDS(d._yt ? d._yt['주제별_월별_상대빈도'] : null, SRC.youtube);
     chartTFYt = new Chart(document.getElementById('chartTFYt'), {
       type: 'line',
-      data: { labels: MONTHS, datasets: ytTopicDS.length > 0 ? ytTopicDS : [_ds(ytMonthly, '#FF0000', '<유튜브 말뭉치>')] },
+      data: { labels: MONTHS, datasets: ytTopicDS.length > 0 ? ytTopicDS : [_ds(ytMonthly, '#FB7171', '<유튜브 말뭉치>')] },
       options: ytTopicDS.length > 0 ? _topicLineOpts() : _lineOpts(false)
     });
   } else {
@@ -1833,7 +1833,7 @@ function openModal(d) {
     var topicDS = _buildTopicDS(d['주제별_월별_상대빈도'], SRC[srcKey]);
     chartTF = new Chart(document.getElementById('chartTF'), {
       type: 'line',
-      data: { labels: MONTHS, datasets: topicDS.length > 0 ? topicDS : [_ds(monthlyFreq, (currentSource === 'youtube' ? '#FF0000' : '#03C75A'), '상대빈도')] },
+      data: { labels: MONTHS, datasets: topicDS.length > 0 ? topicDS : [_ds(monthlyFreq, (currentSource === 'youtube' ? '#FB7171' : '#4BD37F'), '상대빈도')] },
       options: topicDS.length > 0 ? _topicLineOpts() : _lineOpts(false)
     });
   }
