@@ -1795,7 +1795,8 @@ function openModal(d) {
 
     // 1) 통합 (dual-line)
     document.getElementById('chartTFTitle').textContent = '텍스트 장르별 상대빈도 추이';
-    document.getElementById('chartTFMax').innerHTML = _maxLabel(nvMonthly, '&lt;네이버 뉴스 말뭉치&gt;') + ' · ' + _maxLabel(ytMonthly, '&lt;유튜브 말뭉치&gt;').replace('<span>', '<span style="color:#FB7171">');
+    // [논문 예시용] 차트 최고값 라벨 임시 숨김
+    // document.getElementById('chartTFMax').innerHTML = _maxLabel(nvMonthly, '&lt;네이버 뉴스 말뭉치&gt;') + ' · ' + _maxLabel(ytMonthly, '&lt;유튜브 말뭉치&gt;').replace('<span>', '<span style="color:#FB7171">');
     chartTF = new Chart(document.getElementById('chartTF'), {
       type: 'line',
       data: { labels: MONTHS, datasets: [_ds(nvMonthly, '#4BD37F', '<네이버 뉴스 말뭉치>'), _ds(ytMonthly, '#FB7171', '<유튜브 말뭉치>')] },
@@ -1804,7 +1805,8 @@ function openModal(d) {
 
     // 2) 신문 주제별 스택
     document.getElementById('chartTFNvSection').style.display = '';
-    document.getElementById('chartTFNvMax').innerHTML = _maxLabel(nvMonthly, '월');
+    // [논문 예시용] 차트 최고값 라벨 임시 숨김
+    // document.getElementById('chartTFNvMax').innerHTML = _maxLabel(nvMonthly, '월');
     var nvTopicDS = _buildTopicDS(d._nv ? d._nv['주제별_월별_상대빈도'] : null, SRC.naver_news);
     chartTFNv = new Chart(document.getElementById('chartTFNv'), {
       type: 'line',
@@ -1814,7 +1816,8 @@ function openModal(d) {
 
     // 3) 웹 주제별 스택
     document.getElementById('chartTFYtSection').style.display = '';
-    document.getElementById('chartTFYtMax').innerHTML = _maxLabel(ytMonthly, '월');
+    // [논문 예시용] 차트 최고값 라벨 임시 숨김
+    // document.getElementById('chartTFYtMax').innerHTML = _maxLabel(ytMonthly, '월');
     var ytTopicDS = _buildTopicDS(d._yt ? d._yt['주제별_월별_상대빈도'] : null, SRC.youtube);
     chartTFYt = new Chart(document.getElementById('chartTFYt'), {
       type: 'line',
@@ -1826,7 +1829,8 @@ function openModal(d) {
     document.getElementById('chartTFNvSection').style.display = 'none';
     document.getElementById('chartTFYtSection').style.display = 'none';
     var monthlyFreq = d['월별 상대빈도'].map(function(v) { return Math.round(v); });
-    document.getElementById('chartTFMax').innerHTML = _maxLabel(monthlyFreq, '월');
+    // [논문 예시용] 차트 최고값 라벨 임시 숨김
+    // document.getElementById('chartTFMax').innerHTML = _maxLabel(monthlyFreq, '월');
     var srcKey = currentSource;
     var topicDS = _buildTopicDS(d['주제별_월별_상대빈도'], SRC[srcKey]);
     chartTF = new Chart(document.getElementById('chartTF'), {
@@ -1848,7 +1852,7 @@ function openModal(d) {
       plugins: {
         legend: isMobile
           ? { display: true, position: 'bottom', align: 'center', labels: { color: '#1a2540', font: { size: 9 }, padding: 6, boxWidth: 8, usePointStyle: true } }
-          : { position: 'bottom', align: 'center', labels: { color: '#1a2540', font: { size: 13 }, padding: 18, boxWidth: 14, usePointStyle: true } },
+          : { position: 'top', align: 'center', labels: { color: '#1a2540', font: { size: 13 }, padding: 18, boxWidth: 14, usePointStyle: true } },
         tooltip: { callbacks: { label: function(ctx) { var pct = pmwTotal > 0 ? ((ctx.raw / pmwTotal) * 100).toFixed(1) : 0; return ctx.label + ': ' + pct + '%'; } } },
         datalabels: { display: false }
       }
@@ -1870,9 +1874,10 @@ function openModal(d) {
     var nvLabels = nvSections.map(function(s) { return secLabel('naver_news', s); });
     var nvPmw = nvRec ? nvSections.map(function(s) { return nvRec['주제별 상대빈도'][s] || 0; }) : nvSections.map(function() { return 0; });
     var nvPmwTotal = nvPmw.reduce(function(a, b) { return a + b; }, 0);
-    var rankEl = document.getElementById('chartPMWRank');
-    rankEl.innerHTML = _topRank(nvLabels, nvPmw, nvPmwTotal);
-    rankEl.style.display = 'block';
+    // [논문 예시용] 주제 순위 라벨 임시 숨김
+    // var rankEl = document.getElementById('chartPMWRank');
+    // rankEl.innerHTML = _topRank(nvLabels, nvPmw, nvPmwTotal);
+    // rankEl.style.display = 'block';
     chartPMW = new Chart(document.getElementById('chartPMW'), {
       type: 'doughnut', plugins: [],
       data: { labels: nvLabels, datasets: [{ data: nvPmw, backgroundColor: nvCfg.colors8, borderColor: 'rgba(255,255,255,0.95)', borderWidth: 2 }] },
@@ -1887,9 +1892,10 @@ function openModal(d) {
     var ytLabels = ytSections.map(function(s) { return secLabel('youtube', s); });
     var ytPmw = ytRec ? ytSections.map(function(s) { return ytRec['주제별 상대빈도'][s] || 0; }) : ytSections.map(function() { return 0; });
     var ytPmwTotal = ytPmw.reduce(function(a, b) { return a + b; }, 0);
-    var ytRankEl = document.getElementById('chartPMWYtRank');
-    ytRankEl.innerHTML = _topRank(ytLabels, ytPmw, ytPmwTotal);
-    ytRankEl.style.display = 'block';
+    // [논문 예시용] 주제 순위 라벨 임시 숨김
+    // var ytRankEl = document.getElementById('chartPMWYtRank');
+    // ytRankEl.innerHTML = _topRank(ytLabels, ytPmw, ytPmwTotal);
+    // ytRankEl.style.display = 'block';
     chartPMWYt = new Chart(document.getElementById('chartPMWYt'), {
       type: 'doughnut', plugins: [],
       data: { labels: ytLabels, datasets: [{ data: ytPmw, backgroundColor: ytCfg.colors8, borderColor: 'rgba(255,255,255,0.95)', borderWidth: 2 }] },
@@ -1903,9 +1909,10 @@ function openModal(d) {
     var pmwData = sections.map(function(s) { return d['주제별 상대빈도'][s] || 0; });
     var pieColors = cfg.colors8;
     var pmwTotal = pmwData.reduce(function(a, b) { return a + b; }, 0);
-    var rankEl2 = document.getElementById('chartPMWRank');
-    rankEl2.innerHTML = _topRank(sectionDisplayLabels, pmwData, pmwTotal);
-    rankEl2.style.display = 'block';
+    // [논문 예시용] 주제 순위 라벨 임시 숨김
+    // var rankEl2 = document.getElementById('chartPMWRank');
+    // rankEl2.innerHTML = _topRank(sectionDisplayLabels, pmwData, pmwTotal);
+    // rankEl2.style.display = 'block';
     chartPMW = new Chart(document.getElementById('chartPMW'), {
       type: 'doughnut', plugins: [],
       data: { labels: sectionDisplayLabels, datasets: [{ data: pmwData, backgroundColor: pieColors, borderColor: 'rgba(255,255,255,0.95)', borderWidth: 2 }] },
