@@ -1706,6 +1706,15 @@ function openModal(d) {
   if (chartTFYt) chartTFYt.destroy();
   chartTFNv = null; chartTFYt = null;
 
+  // 범례와 그래프 사이 간격 확보 (범례 박스 높이 증가)
+  var _legendGap = {
+    id: 'legendGap',
+    beforeInit: function(chart) {
+      var origFit = chart.legend.fit;
+      chart.legend.fit = function() { origFit.call(this); this.height += 24; };
+    }
+  };
+
   var _lineOpts = function(hasLegend) {
     return {
       responsive: true,
@@ -1798,7 +1807,7 @@ function openModal(d) {
     // [논문 예시용] 차트 최고값 라벨 임시 숨김
     // document.getElementById('chartTFMax').innerHTML = _maxLabel(nvMonthly, '&lt;네이버 뉴스 말뭉치&gt;') + ' · ' + _maxLabel(ytMonthly, '&lt;유튜브 말뭉치&gt;').replace('<span>', '<span style="color:#FB7171">');
     chartTF = new Chart(document.getElementById('chartTF'), {
-      type: 'line',
+      type: 'line', plugins: [_legendGap],
       data: { labels: MONTHS, datasets: [_ds(nvMonthly, '#4BD37F', '<네이버 뉴스 말뭉치>'), _ds(ytMonthly, '#FB7171', '<유튜브 말뭉치>')] },
       options: _lineOpts(true)
     });
@@ -1809,7 +1818,7 @@ function openModal(d) {
     // document.getElementById('chartTFNvMax').innerHTML = _maxLabel(nvMonthly, '월');
     var nvTopicDS = _buildTopicDS(d._nv ? d._nv['주제별_월별_상대빈도'] : null, SRC.naver_news);
     chartTFNv = new Chart(document.getElementById('chartTFNv'), {
-      type: 'line',
+      type: 'line', plugins: [_legendGap],
       data: { labels: MONTHS, datasets: nvTopicDS.length > 0 ? nvTopicDS : [_ds(nvMonthly, '#4BD37F', '<네이버 뉴스 말뭉치>')] },
       options: nvTopicDS.length > 0 ? _topicLineOpts() : _lineOpts(false)
     });
@@ -1820,7 +1829,7 @@ function openModal(d) {
     // document.getElementById('chartTFYtMax').innerHTML = _maxLabel(ytMonthly, '월');
     var ytTopicDS = _buildTopicDS(d._yt ? d._yt['주제별_월별_상대빈도'] : null, SRC.youtube);
     chartTFYt = new Chart(document.getElementById('chartTFYt'), {
-      type: 'line',
+      type: 'line', plugins: [_legendGap],
       data: { labels: MONTHS, datasets: ytTopicDS.length > 0 ? ytTopicDS : [_ds(ytMonthly, '#FB7171', '<유튜브 말뭉치>')] },
       options: ytTopicDS.length > 0 ? _topicLineOpts() : _lineOpts(false)
     });
@@ -1834,7 +1843,7 @@ function openModal(d) {
     var srcKey = currentSource;
     var topicDS = _buildTopicDS(d['주제별_월별_상대빈도'], SRC[srcKey]);
     chartTF = new Chart(document.getElementById('chartTF'), {
-      type: 'line',
+      type: 'line', plugins: [_legendGap],
       data: { labels: MONTHS, datasets: topicDS.length > 0 ? topicDS : [_ds(monthlyFreq, (currentSource === 'youtube' ? '#FB7171' : '#4BD37F'), '상대빈도')] },
       options: topicDS.length > 0 ? _topicLineOpts() : _lineOpts(false)
     });
@@ -1879,7 +1888,7 @@ function openModal(d) {
     // rankEl.innerHTML = _topRank(nvLabels, nvPmw, nvPmwTotal);
     // rankEl.style.display = 'block';
     chartPMW = new Chart(document.getElementById('chartPMW'), {
-      type: 'doughnut', plugins: [],
+      type: 'doughnut', plugins: [_legendGap],
       data: { labels: nvLabels, datasets: [{ data: nvPmw, backgroundColor: nvCfg.colors8, borderColor: 'rgba(255,255,255,0.95)', borderWidth: 2 }] },
       options: _donutOpts(nvPmwTotal)
     });
@@ -1897,7 +1906,7 @@ function openModal(d) {
     // ytRankEl.innerHTML = _topRank(ytLabels, ytPmw, ytPmwTotal);
     // ytRankEl.style.display = 'block';
     chartPMWYt = new Chart(document.getElementById('chartPMWYt'), {
-      type: 'doughnut', plugins: [],
+      type: 'doughnut', plugins: [_legendGap],
       data: { labels: ytLabels, datasets: [{ data: ytPmw, backgroundColor: ytCfg.colors8, borderColor: 'rgba(255,255,255,0.95)', borderWidth: 2 }] },
       options: _donutOpts(ytPmwTotal)
     });
@@ -1914,7 +1923,7 @@ function openModal(d) {
     // rankEl2.innerHTML = _topRank(sectionDisplayLabels, pmwData, pmwTotal);
     // rankEl2.style.display = 'block';
     chartPMW = new Chart(document.getElementById('chartPMW'), {
-      type: 'doughnut', plugins: [],
+      type: 'doughnut', plugins: [_legendGap],
       data: { labels: sectionDisplayLabels, datasets: [{ data: pmwData, backgroundColor: pieColors, borderColor: 'rgba(255,255,255,0.95)', borderWidth: 2 }] },
       options: _donutOpts(pmwTotal)
     });
