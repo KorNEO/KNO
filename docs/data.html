@@ -1115,7 +1115,7 @@ function initTable() {
     //       9=매체비율,10=화자비율,11=출현장르수,12=출현주제수,13=DP,14~25=월별
     heads = ['최초 출현일','표제어','최초 출현 기사문','총 상대빈도',
              '&lt;네이버 뉴스 말뭉치&gt;<br>상대빈도','&lt;네이버 뉴스 말뭉치&gt;<br>순위','&lt;유튜브 말뭉치&gt;<br>상대빈도','&lt;유튜브 말뭉치&gt;<br>순위','순위<br>차이',
-             '사용 매체<br>비율','사용 화자<br>비율','출현 장르<br>수','출현 주제<br>수','DP'];
+             '사용 매체<br>비율','사용 화자<br>비율','출현<br>장르 수','출현<br>주제 수','DP'];
     headTitles = ['','','',FREQ_TIP,FREQ_TIP,'',FREQ_TIP,'','|&lt;네이버 뉴스 말뭉치&gt; 순위 - &lt;유튜브 말뭉치&gt; 순위|','','','&lt;네이버 뉴스 말뭉치&gt;(1) + &lt;유튜브 말뭉치&gt;(1)','&lt;네이버 뉴스 말뭉치&gt; 8 + &lt;유튜브 말뭉치&gt; 15 = 23개 주제',DP_TIP + ' — 23개 주제 기준 (&lt;네이버 뉴스 말뭉치&gt; 8 + &lt;유튜브 말뭉치&gt; 15)'];
     MONTHS.forEach(function(m) { heads.push(m); headTitles.push(FREQ_TIP + ' (&lt;네이버 뉴스 말뭉치&gt;)'); });
     heads.push('&lt;네이버 뉴스 말뭉치&gt;<br>절대빈도', '&lt;유튜브 말뭉치&gt;<br>절대빈도');
@@ -1125,7 +1125,7 @@ function initTable() {
     headTitles = ['','','','절대빈도',FREQ_TIP];
     if (cfg.hasTitle) { heads.push('제목 빈도 비율'); headTitles.push(''); }
     var numSec = cfg.sections ? cfg.sections.length : 0;
-    heads.push(cfg.pressCount,'출현 장르<br>수','출현 주제<br>수','DP');
+    heads.push(cfg.pressCount,'출현<br>장르 수','출현<br>주제 수','DP');
     headTitles.push('','&lt;네이버 뉴스 말뭉치&gt;(1) + &lt;유튜브 말뭉치&gt;(1)', numSec + '개 주제',DP_TIP);
     MONTHS.forEach(function(m) { heads.push(m); headTitles.push(FREQ_TIP); });
   }
