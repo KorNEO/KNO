@@ -1,0 +1,101 @@
+{%- comment -%}
+  월별 리포트(_layouts/report.html)와 누적 리포트(reports/cumulative.html)가 함께 쓰는
+  스타일·스크립트. 두 페이지가 각자 복사본을 갖고 있다가 서로 어긋난 적이 있어 여기로 합쳤다.
+{%- endcomment -%}
+<style>
+.neo-breakdown{display:flex;align-items:center;justify-content:center;gap:24px;padding:18px 0 4px;}
+.nb-item{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.nb-num{font-size:1.9rem;font-weight:700;color:var(--accent-nova);line-height:1;}
+.nb-label{font-size:.85rem;color:#5a6478;font-weight:500;}
+.nb-plus{font-size:1.5rem;color:#94a3b8;font-weight:300;}
+.h2-sub{font-size:.72rem;font-weight:500;color:#fff;background:#64748b;padding:3px 9px;border-radius:20px;vertical-align:middle;margin-left:8px;}
+.pipe-table td:first-child{font-weight:600;}
+.pipe-note{color:#64748b;font-size:.85rem;}
+.pipe-tabs{display:flex;gap:4px;margin:0 0 -1px;}
+.pipe-tab{appearance:none;border:1px solid #e2e8f0;border-bottom-color:transparent;background:#f8fafc;color:#64748b;font:inherit;font-size:.89rem;font-weight:600;padding:8px 16px;border-radius:8px 8px 0 0;cursor:pointer;}
+.pipe-tab:hover{color:var(--accent-signal);}
+.pipe-tab.is-on{background:#fff;color:var(--accent-signal);border-bottom-color:#fff;box-shadow:inset 0 2px 0 var(--accent-signal);}
+.pipe-pane{display:none;}
+.pipe-pane.is-on{display:block;}
+.pipe-pane .table-wrap{margin-top:0;}
+/* 열 너비를 고정해 탭을 바꿔도 표가 그대로 있고 숫자만 바뀌게 한다.
+   auto 레이아웃이면 탭마다 라벨·자릿수가 달라 열 너비가 흔들린다. */
+.pipe-pane table{margin-top:0;table-layout:fixed;}
+.pipe-pane table th:nth-child(1),.pipe-pane table td:nth-child(1){width:52%;}
+.pipe-pane table th:nth-child(2),.pipe-pane table td:nth-child(2){width:26%;}
+.pipe-pane table th:nth-child(3),.pipe-pane table td:nth-child(3){width:22%;}
+.donut-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin:1rem 0 2rem;}
+.donut-box h3{font-size:.93rem;font-weight:600;color:#334155;margin:10px 0 0;text-align:center;}
+.donut-box canvas{max-height:280px;}
+.corpus-table .cell-src{vertical-align:middle;text-align:center;font-weight:600;background:#f8fafc;}
+.corpus-table .cell-way{vertical-align:middle;text-align:center;color:#334155;}
+.subtotal-row td{background:#f8fafc;font-weight:600;}
+.corpus-table .src-total-row td{background:rgba(30,58,138,.035);font-weight:600;}
+.corpus-table .total-row td{border-top:2px solid var(--border);background:rgba(30,58,138,.07);font-weight:700;}
+.corpus-table .cell-total{text-align:center;}
+@media (max-width:520px){.pipe-tab{padding:8px 10px;font-size:.8rem;}.donut-box canvas{max-height:230px;}}
+</style>
+<script>
+document.querySelectorAll('.fmt-num').forEach(function(el){
+  var n=Number(el.textContent.trim()); if(!isNaN(n)&&el.textContent.trim()!=='') el.textContent=n.toLocaleString('ko-KR');
+});
+// 비율은 유효자릿수 기준으로 끊는다. 100% ~ 0.000934%까지 5자릿수를 오가므로
+// 고정 소수점을 쓰면 한쪽은 0만 늘어서고 한쪽은 값이 사라진다.
+document.querySelectorAll('.fmt-pct').forEach(function(el){
+  var v=parseFloat(el.textContent.trim());
+  if(isNaN(v)) return;
+  var x=v*100;
+  el.textContent=(x>=100?'100':x>=10?x.toFixed(1):x>=1?x.toFixed(2):Number(x.toPrecision(3)))+'%';
+});
+document.querySelectorAll('.fmt-eok').forEach(function(el){
+  var w=parseInt(el.getAttribute('data-total-words'));
+  if(!isNaN(w)) el.textContent='말뭉치 약 '+Math.round(w/100000000)+'억 어절';
+});
+// 도넛 — 옵션은 data.html의 주제별 분포 도넛과 같게, 색만 계열별로 나눈다.
+(function(){
+  if(typeof Chart==='undefined') return;
+  // seaborn vlag (파랑↔빨강 diverging). 왼쪽 도넛은 파랑 팔, 오른쪽 도넛은 빨강 팔을 쓴다.
+  // 두 팔 모두 진한 색부터 배정해 가장 큰 조각이 가장 선명하게 보이도록 했다.
+  var PALETTES={
+    '기반자료':['#6087bd','#8fa5c7','#bdc6d7','#ebeaee'],
+    '방법론':['#bd6361','#cf8c8a','#e1b9b6','#f5e5e4']
+  };
+
+  var isMobile=window.matchMedia('(max-width:640px)').matches;
+  document.querySelectorAll('canvas.neo-donut').forEach(function(cv){
+    var COLORS=PALETTES[cv.dataset.palette]||PALETTES['기반자료'];
+    var labels=cv.dataset.labels.split('|').filter(Boolean);
+    var values=cv.dataset.values.split('|').filter(Boolean).map(Number);
+    var total=values.reduce(function(a,b){return a+b;},0);
+    new Chart(cv,{
+      type:'doughnut',
+      data:{labels:labels,datasets:[{data:values,backgroundColor:COLORS,
+            borderColor:'rgba(255,255,255,0.95)',borderWidth:2}]},
+      options:{responsive:true,maintainAspectRatio:false,
+        layout:{padding:isMobile?4:10},
+        plugins:{
+          legend:isMobile
+            ?{display:true,position:'bottom',align:'center',labels:{color:'#1a2540',font:{size:9},padding:6,boxWidth:8,usePointStyle:true}}
+            :{position:'top',align:'center',labels:{color:'#1a2540',font:{size:13},padding:18,boxWidth:14,usePointStyle:true}},
+          tooltip:{boxPadding:8,padding:10,callbacks:{label:function(ctx){
+            var pct=total>0?((ctx.raw/total)*100).toFixed(1):0;
+            return ctx.label+': '+ctx.raw.toLocaleString('ko-KR')+'개 ('+pct+'%)';
+          }}},
+          datalabels:{display:false}
+        }}
+    });
+  });
+})();
+document.querySelectorAll('.pipe-tabs').forEach(function(tabs){
+  var scope=tabs.parentNode;
+  tabs.addEventListener('click',function(e){
+    var btn=e.target.closest('.pipe-tab'); if(!btn) return;
+    tabs.querySelectorAll('.pipe-tab').forEach(function(b){
+      var on=b===btn; b.classList.toggle('is-on',on); b.setAttribute('aria-selected',on);
+    });
+    scope.querySelectorAll('.pipe-pane').forEach(function(pane){
+      pane.classList.toggle('is-on',pane.dataset.lane===btn.dataset.lane);
+    });
+  });
+});
+</script>

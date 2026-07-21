@@ -7,11 +7,12 @@
   --text-secondary: #5a6478;
   --text-muted: #94a3b8;
   --accent-nova: #1e3a8a;
-  --accent-glow: #2563eb;
+  --accent-glow: #0f172a;   /* 제목·표머리 (검정 잉크) */
+  --accent-signal: #9f1239; /* 신호 — 링크·활성 탭·최종 행 */
   --accent-warm: #c2410c;
   --accent-purple: #7c3aed;
   --font-mono: 'Space Mono', monospace;
-  --font-body: 'Pretendard', 'Noto Sans KR', sans-serif;
+  --font-body: 'Noto Sans KR', 'Pretendard', sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,8 +23,10 @@ body {
   background: var(--bg-deep);
   color: var(--text-primary);
   font-family: var(--font-body);
-  font-weight: 300;
-  line-height: 1.8;
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
   font-variant-numeric: tabular-nums;
   min-height: 100vh;
   display: flex;
@@ -45,7 +48,7 @@ body {
 }
 
 .nav-logo {
-  font-family: 'Pretendard', sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 1.3rem;
   color: var(--accent-nova);
@@ -64,6 +67,24 @@ body {
 }
 
 .nav-links a:hover { color: var(--accent-nova); }
+
+/* 현재 보고 있는 탭 — 색만으로는 약해서 아래 밑줄을 같이 준다 */
+.nav-links a.is-current {
+  color: var(--accent-nova);
+  font-weight: 700;
+  position: relative;
+}
+
+.nav-links a.is-current::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1.25rem;
+  height: 3px;
+  background: var(--accent-nova);
+  border-radius: 2px 2px 0 0;
+}
 
 /* ── MAIN ── */
 main {
@@ -143,8 +164,8 @@ main {
 }
 
 .hint-tip {
-  font-size: 0.75rem;
-  font-weight: 400;
+  font-size: 0.79rem;
+  font-weight: 500;
   color: var(--text-muted);
   margin-left: 0.8rem;
   opacity: 0.8;
@@ -213,7 +234,7 @@ main {
 .view-all {
   display: inline-block;
   margin-top: 1rem;
-  color: var(--accent-nova);
+  color: var(--accent-signal);
   font-size: 0.9rem;
   text-decoration: none;
 }
@@ -233,7 +254,7 @@ main {
 }
 
 .report-breadcrumb a:hover {
-  color: var(--accent-nova);
+  color: var(--accent-signal);
 }
 
 .report-article { padding: 2rem 0; }
@@ -290,7 +311,7 @@ main {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
 }
 
 .report-body th,
@@ -302,8 +323,8 @@ main {
 
 .report-body th {
   background: var(--bg-card);
-  font-weight: 500;
-  color: var(--accent-nova);
+  font-weight: 600;
+  color: var(--accent-glow);
 }
 
 .report-body code {
@@ -343,7 +364,7 @@ main {
 }
 
 .report-footer a {
-  color: var(--accent-nova);
+  color: var(--accent-signal);
   text-decoration: none;
   font-size: 0.9rem;
 }
@@ -439,8 +460,8 @@ td.num {
 }
 
 .step-desc {
-  font-size: 0.78em;
-  color: var(--text-muted);
+  font-size: 0.82em;
+  color: var(--text-secondary);
 }
 
 .report-body th {
@@ -448,12 +469,16 @@ td.num {
 }
 
 .highlight-row {
-  background: rgba(30, 58, 138, 0.06);
+  background: rgba(159, 18, 57, 0.05);
 }
 
 .highlight-row td {
-  color: var(--accent-nova);
-  font-weight: 500;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.highlight-row td:first-child {
+  box-shadow: inset 3px 0 0 var(--accent-signal);
 }
 
 .total-row {
@@ -466,7 +491,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
 }
 
 th, td {
@@ -477,7 +502,7 @@ th, td {
 
 th {
   background: var(--bg-card);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--accent-nova);
 }
 
@@ -492,7 +517,7 @@ th {
 .about-content p { margin-bottom: 1rem; }
 
 .about-content a {
-  color: var(--accent-nova);
+  color: var(--accent-signal);
   text-decoration: none;
 }
 

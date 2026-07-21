@@ -1,0 +1,57 @@
+{%- comment -%}
+  신어 기반 자료 규모 — 논문 표 형식(출처 / 구축 방식 / 텍스트 주제 / 어절 수 / 비율).
+  출처·구축 방식은 rowspan으로 묶는다. 비율은 샘플링 말뭉치 소계를 100.0으로 본 값이고,
+  화용 표지 말뭉치는 별도 구축이라 비율을 '-'로 둔다.
+  파라미터 c = corpus_monthly의 한 달(또는 '누적') 항목.
+{%- endcomment -%}
+<div class="table-wrap">
+  <table class="corpus-table">
+    <thead>
+      <tr>
+        <th>출처</th>
+        <th>구축 방식</th>
+        <th>텍스트 주제</th>
+        <th>어절 수</th>
+        <th>비율(%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%- assign sources = "신문,댓글" | split: "," -%}
+      {%- for sk in sources -%}
+      {%- assign cs = include.c[sk] -%}
+      {%- assign span = cs['샘플'].size | plus: 3 -%}
+      {%- for t in cs['샘플'] -%}
+      <tr>
+        {%- if forloop.first -%}<td class="cell-src" rowspan="{{ span }}">{{ sk }} 말뭉치</td>
+        <td class="cell-way" rowspan="{{ cs['샘플'].size | plus: 1 }}">샘플링 말뭉치</td>{%- endif -%}
+        <td>{{ t['t'] }}</td>
+        <td class="num fmt-num">{{ t['w'] }}</td>
+        <td class="num">{{ t['pct'] }}</td>
+      </tr>
+      {%- endfor -%}
+      <tr class="subtotal-row">
+        <td>소계</td>
+        <td class="num fmt-num">{{ cs['샘플합'][1] }}</td>
+        <td class="num">100.0</td>
+      </tr>
+      <tr>
+        <td class="cell-way">화용 표지 말뭉치</td>
+        <td>-</td>
+        <td class="num fmt-num">{{ cs['화용표지'][1] }}</td>
+        <td class="num">-</td>
+      </tr>
+      <tr class="src-total-row">
+        <td class="cell-way">합계</td>
+        <td>-</td>
+        <td class="num fmt-num">{{ cs['샘플합'][1] | plus: cs['화용표지'][1] }}</td>
+        <td class="num">-</td>
+      </tr>
+      {%- endfor -%}
+      <tr class="total-row">
+        <td class="cell-total" colspan="3">총 합계</td>
+        <td class="num fmt-num">{{ include.c['총어절'] }}</td>
+        <td class="num">-</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

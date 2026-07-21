@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% seo %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -13,17 +13,19 @@
 </head>
 <body>
   <nav class="top-nav">
-    <a href="{{ '/' | relative_url }}" class="nav-logo">KNO: 한국어 신어 관측 시스템</a>
+    <a href="{{ '/' | relative_url }}" class="nav-logo">한국어 신어 관측 시스템</a>
     <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
     </button>
+    {%- comment -%} 현재 위치 판별 — reports/ 하위(월별·누적 보고)도 '신어 관측 보고'가 켜져야 한다 {%- endcomment -%}
+    {%- assign u = page.url -%}
     <div class="nav-links">
-      <a href="{{ '/' | relative_url }}">홈</a>
-      <a href="{{ '/reports/' | relative_url }}">신어 관측 보고</a>
-      <a href="{{ '/data.html' | relative_url }}">신어별 관측 데이터</a>
-      <a href="{{ '/about/' | relative_url }}">프로젝트 소개</a>
+      <a href="{{ '/' | relative_url }}"{% if u == '/' %} class="is-current" aria-current="page"{% endif %}>홈</a>
+      <a href="{{ '/reports/' | relative_url }}"{% if u contains '/reports/' %} class="is-current" aria-current="page"{% endif %}>신어 관측 보고</a>
+      <a href="{{ '/data.html' | relative_url }}"{% if u contains '/data' %} class="is-current" aria-current="page"{% endif %}>신어별 관측 데이터</a>
+      <a href="{{ '/about/' | relative_url }}"{% if u contains '/about' %} class="is-current" aria-current="page"{% endif %}>프로젝트 소개</a>
       <a href="https://github.com/KorNEO/KNO" target="_blank">GitHub</a>
     </div>
   </nav>

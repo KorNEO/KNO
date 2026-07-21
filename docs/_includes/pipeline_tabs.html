@@ -1,0 +1,39 @@
+{%- comment -%}
+  신어 후보군 추출·정제·판별 — 통합 / 신문 말뭉치 / 댓글 말뭉치 탭.
+  표는 기존 리포트 표 디자인 그대로(정제 단계 / 정제 후 항목 수 / 비율, .step-desc, .highlight-row).
+  단계별 정제는 소스별로만 존재한다(통합 dedup 값이 원 자료에 없음) → 통합 탭은 M2/M3/M4 요약.
+  파라미터 p = pipeline_monthly의 한 달(또는 '누적') 항목.
+{%- endcomment -%}
+{%- assign lanes = "통합,신문,댓글" | split: "," -%}
+{%- assign lane_labels = "통합,신문 말뭉치,댓글 말뭉치" | split: "," -%}
+<div class="pipe-tabs" role="tablist">
+  {%- for lane in lanes -%}
+  <button type="button" class="pipe-tab{% if forloop.first %} is-on{% endif %}"
+          role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          data-lane="{{ lane }}">{{ lane_labels[forloop.index0] }}</button>
+  {%- endfor -%}
+</div>
+{%- for lane in lanes -%}
+<div class="pipe-pane{% if forloop.first %} is-on{% endif %}" data-lane="{{ lane }}" role="tabpanel">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>수집 단계</th>
+          <th>항목 수</th>
+          <th>비율</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- for step in include.p['파이프라인'][lane]['단계'] -%}
+        <tr{% if forloop.last %} class="highlight-row"{% endif %}>
+          <td>{{ step[0] }}{% if step[1] != '' %} <span class="step-desc">({{ step[1] }})</span>{% endif %}</td>
+          <td class="num fmt-num">{{ step[2] }}</td>
+          <td class="num fmt-pct">{{ step[3] }}</td>
+        </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+  </div>
+</div>
+{%- endfor -%}
