@@ -440,6 +440,7 @@
     /* 빈도 필터 바 */
     /* ── 검색 박스 (소개 문구 아래) ── */
     .kno-search {
+      position:relative;
       background:var(--bg-card); border:1px solid var(--border); border-radius:8px;
       padding:1.1rem 1.2rem; margin:1.4rem 0 1.8rem;
     }
@@ -686,6 +687,26 @@
       .modal-section { padding:1.2rem; margin-bottom:1rem; }
       .modal-hero h2 { font-size:1.1rem; padding-right:2rem; }
       .modal-close { top:0.8rem; right:0.8rem; width:44px; height:44px; font-size:1.5rem; }
+      /* 섹션 padding이 1.2rem이라 저장 버튼 위치를 맞춰 준다 */
+      .png-btn { right:1.2rem; top:1.05rem; }
+      /* 좌우 이동 버튼: 화면이 좁아 카드 위에 겹치므로 하단 가운데로 내린다.
+         본문 위에 떠 있으므로 반투명이 아니라 불투명 + 짙은 그림자로 분리한다. */
+      .modal-nav { top:auto; bottom:1rem; transform:none; width:46px; height:46px;
+        background:#fff; color:var(--accent-nova); border-color:var(--accent-nova);
+        box-shadow:0 4px 18px rgba(15,23,42,0.28); backdrop-filter:none; }
+      .modal-prev { left:calc(50% - 54px); }
+      .modal-next { right:calc(50% - 54px); }
+      /* 팝업 기준을 ? 버튼이 아니라 검색 박스로 옮긴다.
+         ? 위치(x≈212)에서 펼치면 오른쪽이 화면 밖으로 126px 나갔다. */
+      .kno-help-wrap { position:static; }
+      .kno-search .search-tip-popup {
+        left:0.6rem; right:0.6rem; width:auto; max-width:none;
+        top:3.4rem;   /* 탭 줄 바로 아래 */
+      }
+      .tiptbl { width:100%; }
+      .tiptbl td, .tiptbl th { padding-right:0.5rem; white-space:normal; }
+      .modal-prev { left:calc(50% - 64px); }
+      .modal-next { right:calc(50% - 64px); }
       .stat-cards { grid-template-columns:repeat(2,1fr); }
       .modal { overflow-x:hidden; }
       .galaxy-container { height:300px; }
@@ -698,6 +719,10 @@
       /* 차트 최고값 라벨 */
       .tf-max-label { font-size:0.65rem; }
       .pmw-rank { font-size:0.65rem; }
+      /* 터치 타깃 확보 (24px는 손가락으로 누르기 어렵다) */
+      .res-btn { width:34px; height:34px; font-size:1rem; }
+      .res-label, .res-now { font-size:0.8rem; }
+      .png-btn { padding:0.32rem 0.7rem; font-size:0.72rem; }
     }
     /* ═══════ MOBILE: PHONES ONLY ═══════ */
     @media (max-width:480px) {
@@ -797,6 +822,13 @@
       }
       /* 모달 */
       .modal { padding:0.5rem 0.3rem 2rem; overflow-x:hidden; }
+      /* 섹션 padding 0.6rem 기준 */
+      .png-btn { right:0.6rem; top:0.45rem; font-size:0.68rem; padding:0.16rem 0.45rem; }
+      .modal-nav { width:42px; height:42px; font-size:1.4rem; bottom:0.8rem; }
+      .modal-prev { left:calc(50% - 60px); }
+      .modal-next { right:calc(50% - 60px); }
+      .tiptbl { font-size:0.7rem; }
+      .tiptbl td, .tiptbl th { padding-right:0.45rem; }
       .modal-section { padding:0.6rem; margin-bottom:0.8rem; border-radius:8px; overflow:hidden; }
       .modal-hero h2 { font-size:0.95rem; }
       .modal-hero .hero-article { font-size:0.75rem; }
@@ -824,6 +856,10 @@
       .examples-table th, .examples-table td { padding:0.35rem; }
       .ngram-table { font-size:0.68rem; }
       .ngram-table th, .ngram-table td { padding:0.25rem 0.35rem; }
+      /* 터치 타깃 확보 (24px는 손가락으로 누르기 어렵다) */
+      .res-btn { width:34px; height:34px; font-size:1rem; }
+      .res-label, .res-now { font-size:0.8rem; }
+      .png-btn { padding:0.32rem 0.7rem; font-size:0.72rem; }
     }
     /* ═══════ 확대 시 가로 스크롤 허용 ═══════ */
     html { overflow-x:auto; }
@@ -2000,8 +2036,9 @@ function openModal(d) {
       ch.data.datasets.forEach(function(ds){
         if (ds.__raw) ds.data = window.__resample(ds.__raw, st);
       });
-      // 라벨은 화면에 20개 안쪽으로만 찍는다
-      var every = Math.max(1, Math.ceil(ch.data.labels.length / 20));
+      // 라벨은 화면 폭에 맞춰 개수를 줄인다 (좁을수록 적게)
+      var cap = window.innerWidth <= 480 ? 8 : window.innerWidth <= 768 ? 12 : 20;
+      var every = Math.max(1, Math.ceil(ch.data.labels.length / cap));
       ch.options.scales.x.ticks.callback = function(val, idx){
         return idx % every === 0 ? this.getLabelForValue(val) : '';
       };
@@ -2178,7 +2215,7 @@ function openModal(d) {
       responsive: true,
       interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: hasLegend ? { display: true, position: isMobile ? 'bottom' : 'top', labels: { color: '#1a2540', font: { size: isMobile ? 11 : 12.5, weight: '500' }, usePointStyle: true, pointStyle: 'circle', padding: isMobile ? 8 : 10, boxWidth: 8, boxHeight: 8, generateLabels: _solidLegend } } : { display: false },
+        legend: hasLegend ? { display: true, position: 'top', labels: { color: '#1a2540', font: { size: isMobile ? 11 : 12.5, weight: '500' }, usePointStyle: true, pointStyle: 'circle', padding: isMobile ? 8 : 10, boxWidth: 8, boxHeight: 8, generateLabels: _solidLegend } } : { display: false },
         tooltip: {
           displayColors: hasLegend, bodyColor: '#fff',
           backgroundColor: 'rgba(26,37,64,0.92)',
@@ -2189,7 +2226,7 @@ function openModal(d) {
         }
       },
       scales: {
-        x: { ticks: { color: '#5a6478', font: { size: isMobile ? 9 : 11 }, maxRotation: 90, minRotation: 90 }, grid: { color: 'rgba(221,226,234,0.9)' } },
+        x: { ticks: { color: '#5a6478', font: { size: isMobile ? 9 : 11 }, maxRotation: 90, minRotation: 90 }, grid: { display: false } },
         y: { ticks: { color: '#5a6478', font: { size: isMobile ? 9 : 11 } }, grid: { color: 'rgba(221,226,234,0.9)' }, beginAtZero: true }
       }
     };
@@ -2282,8 +2319,9 @@ function openModal(d) {
     chartTF.options.scales.x.ticks.maxRotation = 90;
     chartTF.options.scales.x.ticks.minRotation = 90;
     chartTF.options.scales.x.ticks.font = {size:9};
+    var _tfEvery = window.innerWidth <= 480 ? 9 : window.innerWidth <= 768 ? 6 : 3;
     chartTF.options.scales.x.ticks.callback = function(val, idx){
-      return idx % 3 === 0 ? this.getLabelForValue(val) : '';
+      return idx % _tfEvery === 0 ? this.getLabelForValue(val) : '';
     };
     chartTF.update();
 
