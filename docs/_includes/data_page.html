@@ -1282,6 +1282,13 @@ Promise.all([
   fetch('{{ '/assets/data/' | relative_url }}yt_meta_2020_2025.json').then(function(r){return r.json();}),
 ]).then(function(results) {
   DATA.naver_news.neo = results[0];
+  // <네이버 뉴스> 기준: 최초 출현일이 없으면(네이버 미출현) 기사문·URL·매체도 비운다.
+  // (일부 레코드에 유튜브 댓글·youtube 링크가 채워져 있어 컬럼 라벨과 어긋나던 문제 교정)
+  DATA.naver_news.neo.forEach(function(d){
+    if (!(d['최초 출현일'] && String(d['최초 출현일']).trim())) {
+      d['최초 출현 기사문'] = ''; d['기사문 URL'] = ''; d['최초 출현 매체'] = '';
+    }
+  });
   DATA.naver_news.meta = results[1];
   DATA.naver_news.allPress = results[1].all_press || [];
   // 매체 목록에는 이름이 비어 있는 곳이 빠져 있어 length로 세면 정본과 어긋난다.
