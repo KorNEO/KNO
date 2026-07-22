@@ -50,7 +50,7 @@ KNO(Korean Neologism Observatory)는 한국어에 새롭게 출현하는 단어�
 
 ## 4. 참고문헌
 
-- [안진산·송현주·최준·현영희·이수진·백미경·남길임(2026), 「'한국어 신어 관측 시스템'의 개발과 활용」, 『한국사전학』 제47호.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003344011)
+- [안진산·송현주·최준·현영희·이수진·백미경·남길임(2026), 「한국어 신어 관측 시스템의 개발과 활용」, 『한국사전학』 제47호.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003344011)
 - [안진산(2026ㄱ), 「실시간 신어 추출 파이프라인의 설계와 검증」, 『한글』 제87권 제1호.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003317307)
 - [안진산(2026ㄴ), 「거대언어모델을 활용한 신어 집필의 가능성과 쟁점」, 『한말연구』 제67권.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003313231)
 - [남길임·안진산·이수진(2025), 「말뭉치, LLMs, 인간 전문가의 협업을 통한 한국어 신어의 탐지」, 『한국어학』 108호.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003232209)
