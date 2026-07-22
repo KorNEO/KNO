@@ -62,11 +62,12 @@ const pieColors = [
 // 관측자 추천 신어 (수동 설정)
 const OBSERVER_PICK = '디지털 월세';
 
-fetch('../assets/data/neo_data_712.json')
+fetch('../assets/data/home_2025.json')
   .then(r => r.json())
   .then(data => {
-    const highFreq = [...data].sort((a, b) => b['단어빈도_전체'] - a['단어빈도_전체'])[0];
-    const recent = [...data].sort((a, b) => new Date(b['최초 출현일']) - new Date(a['최초 출현일']))[0];
+    const highFreq = [...data].sort((a, b) => (b['합산상대빈도']||0) - (a['합산상대빈도']||0))[0];
+    const dated = data.filter(d => /^\d{4}-\d{2}/.test(d['최초 출현일'] || ''));
+    const recent = dated.sort((a, b) => new Date(b['최초 출현일']) - new Date(a['최초 출현일']))[0];
     const pick = data.find(d => d['표제어'] === OBSERVER_PICK) || data[0];
     [
       { id: 'featuredHighFreq', d: highFreq },
@@ -80,8 +81,8 @@ fetch('../assets/data/neo_data_712.json')
 
 function renderFeatured(containerId, d) {
   const container = document.getElementById(containerId);
-  const totalFreq = d['단어빈도_전체'];
-  const monthlyFreq = d['월별 상대빈도'].map(v => Math.round(v));
+  const totalFreq = d['합산상대빈도'];
+  const monthlyFreq = (d['월별상대빈도'] || []).map(v => Math.round(v));
 
   const maxVal = Math.max(...monthlyFreq);
   const maxIdx = monthlyFreq.indexOf(maxVal);
@@ -90,12 +91,11 @@ function renderFeatured(containerId, d) {
   container.innerHTML = `
     <div class="featured-neo-header">
       <a href="${d['기사문 URL'] || '#'}" target="_blank" class="featured-neo-title">${d['표제어']}</a>
-      <span class="featured-neo-meta">First attestation: ${d['최초 출현일']} · Total: ${totalFreq.toLocaleString()}</span>
+      <span class="featured-neo-meta">First attestation: ${d['최초 출현일']}</span>
     </div>
     <div class="featured-neo-charts">
       <div class="featured-chart-box" style="position:relative">
         <h4>Monthly RelFreq</h4>
-        <div style="position:absolute;top:0.8rem;right:1rem;font-size:0.75rem;color:var(--text-secondary);text-align:right">${maxLabel}</div>
         <canvas id="${containerId}ChartTF"></canvas>
       </div>
       <div class="featured-chart-box">
