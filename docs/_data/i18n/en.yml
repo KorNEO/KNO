@@ -21,7 +21,8 @@ footer:
 
 data:
   index_title: "Korean Neologism Index"
-  index_desc: "List of Korean neologisms collected from the corpora used for detection and analysis. Click a neologism to see its detailed observation results."
+  index_desc: "List of Korean neologisms collected from the corpora used for detection and analysis."
+  index_cta: "Click a neologism to see its detailed observation results."
   search_basic: "Basic search"
   search_adv: "Advanced search"
   search_help: "Search help"

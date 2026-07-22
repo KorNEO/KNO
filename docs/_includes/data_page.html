@@ -68,6 +68,15 @@
       color:var(--accent-nova); letter-spacing:0; font-weight:800;
     }
     .page-header p { color:var(--text-secondary); margin-top:0.8rem; font-size:0.95rem; }
+    /* 클릭 유도 콜아웃 — 브랜드 네이비 액센트 + 커서 아이콘 */
+    .page-header p.ph-cta {
+      display:inline-flex; align-items:flex-start; gap:0.5rem;
+      margin-top:0.9rem; padding:0.6rem 0.95rem;
+      background:rgba(30,58,138,0.06); border-left:3px solid var(--accent-nova);
+      border-radius:0 8px 8px 0; color:var(--accent-nova);
+      font-size:0.95rem; font-weight:600; line-height:1.5;
+    }
+    .ph-cta-ico { width:18px; height:18px; flex:0 0 auto; margin-top:2px; }
     .sort-select {
       background:var(--bg-card); color:var(--text-primary);
       border:1px solid var(--border); border-radius:4px; padding:0.4rem 0.8rem;
@@ -907,6 +916,7 @@
   <div class="page-header">
     <h1>{{ t.data.index_title }}</h1>
     <p>{{ t.data.index_desc }}</p>
+    <p class="ph-cta"><svg class="ph-cta-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 2.5l6.6 16 2-5.4 5.4-2L5 2.5z"/></svg><span>{{ t.data.index_cta }}</span></p>
   </div>
 
   <div class="kno-search">

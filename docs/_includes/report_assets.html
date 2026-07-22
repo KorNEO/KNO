@@ -42,7 +42,7 @@ var DONUT_TR = KNO_LANG==='en' ? {
   '신문 배타 추출 항목':'Newspaper-exclusive','댓글 배타 추출 항목':'Comment-exclusive',
   '공통 추출 항목':'Common (both corpora)','연구자 직접 수집':'Researcher-collected',
   '통계 기반 추출':'Statistics-based','패턴 기반 추출':'Pattern-based',
-  '담화 표지 기반 추출':'Discourse-marker-based','복합':'Combined'
+  '화용 표지 기반 추출':'Pragmatic-marker-based','복합':'Combined'
 } : {};
 function donutTr(x){ return DONUT_TR[x]!==undefined ? DONUT_TR[x] : x; }
 document.querySelectorAll('.fmt-num').forEach(function(el){
