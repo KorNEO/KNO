@@ -24,22 +24,29 @@ alt_url: /en/
 </div>
 
 <div class="section">
-  <h2>2025년 신어 중, 가장 높은 빈도로 나타난 신어 <span class="hint-tip">신어를 클릭하면 최초 출현 기사로 이동합니다.</span></h2>
+  <h2>2025년 신어 중, 고빈도로 나타난 신어 <span class="hint-tip">신어를 클릭하면 최초 출현 기사로 이동합니다.</span></h2>
   <div id="featuredHighFreq" class="featured-neo">
     <div class="empty-state"><p>데이터 로딩 중...</p></div>
   </div>
 </div>
 
 <div class="section">
-  <h2>2025년 신어 중, 가장 최근에 나타난 신어 <span class="hint-tip">신어를 클릭하면 최초 출현 기사로 이동합니다.</span></h2>
+  <h2>2025년 신어 중, 최근에 나타난 신어 <span class="hint-tip">신어를 클릭하면 최초 출현 기사로 이동합니다.</span></h2>
   <div id="featuredRecent" class="featured-neo">
     <div class="empty-state"><p>데이터 로딩 중...</p></div>
   </div>
 </div>
 
 <div class="section">
-  <h2>2025년 신어 중, 관측자가 소개하고 싶은 신어 <span class="hint-tip">신어를 클릭하면 최초 출현 기사로 이동합니다.</span></h2>
+  <h2>2025년 신어 중, 관측자가 소개하고 싶은 신어 (1) <span class="hint-tip">신어를 클릭하면 최초 출현 기사로 이동합니다.</span></h2>
   <div id="featuredPick" class="featured-neo">
+    <div class="empty-state"><p>데이터 로딩 중...</p></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>2025년 신어 중, 관측자가 소개하고 싶은 신어 (2) <span class="hint-tip">신어를 클릭하면 최초 출현 기사로 이동합니다.</span></h2>
+  <div id="featuredPick2" class="featured-neo">
     <div class="empty-state"><p>데이터 로딩 중...</p></div>
   </div>
 </div>
@@ -52,21 +59,19 @@ const pieColors = [
   'rgba(194,65,12,0.72)', 'rgba(202,138,4,0.72)', 'rgba(15,118,110,0.72)', 'rgba(190,18,60,0.72)'
 ];
 
-// 관측자 추천 신어 (수동 설정)
-const OBSERVER_PICK = '디지털 월세';
+// 홈 featured 신어 (수동 지정)
+const FEATURED = [
+  { id: 'featuredHighFreq', name: '계몽령' },
+  { id: 'featuredRecent',   name: '노멀 휴먼' },
+  { id: 'featuredPick',     name: '에겐남' },
+  { id: 'featuredPick2',    name: '에겐녀' },
+];
 
 fetch('./assets/data/home_2025.json')
   .then(r => r.json())
   .then(data => {
-    const highFreq = [...data].sort((a, b) => (b['합산상대빈도']||0) - (a['합산상대빈도']||0))[0];
-    const dated = data.filter(d => /^\d{4}-\d{2}/.test(d['최초 출현일'] || ''));
-    const recent = dated.sort((a, b) => new Date(b['최초 출현일']) - new Date(a['최초 출현일']))[0];
-    const pick = data.find(d => d['표제어'] === OBSERVER_PICK) || data[0];
-    [
-      { id: 'featuredHighFreq', d: highFreq },
-      { id: 'featuredRecent', d: recent },
-      { id: 'featuredPick', d: pick },
-    ].forEach(f => renderFeatured(f.id, f.d));
+    const byName = n => data.find(d => d['표제어'] === n);
+    FEATURED.forEach(f => { const d = byName(f.name); if (d) renderFeatured(f.id, d); });
   })
   .catch(err => {
     console.error('데이터 로딩 실패:', err);
