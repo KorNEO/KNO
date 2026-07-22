@@ -793,6 +793,12 @@ main img {
     border-bottom: none;
   }
 
+  /* 모바일 세로 메뉴에선 데스크톱용 밑줄(bottom:-1.25rem)이 아래 항목과 겹치므로 숨긴다.
+     현재 탭은 굵은 네이비 글자(.is-current)로 이미 구분된다. */
+  .nav-links a.is-current::after {
+    display: none;
+  }
+
   .top-nav {
     padding: 1rem 1.2rem;
   }
