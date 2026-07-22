@@ -799,6 +799,16 @@ main img {
     display: none;
   }
 
+  /* 언어 스위처: 데스크톱용 세로 구분선·들여쓰기를 없애고 다른 메뉴 항목처럼 좌측 정렬 */
+  .nav-links .nav-lang {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+    gap: 0.5rem;
+  }
+  .nav-links .nav-lang-label { font-size: 1rem; }
+  .nav-lang-globe { width: 17px; height: 17px; }
+
   .top-nav {
     padding: 1rem 1.2rem;
   }
