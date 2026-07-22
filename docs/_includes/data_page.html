@@ -593,6 +593,8 @@
       color:var(--text-secondary); font:inherit; font-size:0.82rem; font-weight:500;
       padding:0.42rem 1rem; border-radius:6px; cursor:pointer; }
     .dl-btn:hover { border-color:var(--accent-nova); color:var(--accent-nova); }
+    .dl-btn:disabled, .dl-btn.is-disabled { opacity:0.45; cursor:not-allowed; border-color:var(--border); color:var(--text-muted); }
+    .dl-btn:disabled:hover, .dl-btn.is-disabled:hover { border-color:var(--border); color:var(--text-muted); }
     .dl-note { font-size:0.78rem; color:var(--text-muted); }
     .png-btn { position:absolute; right:2rem; top:1.85rem; appearance:none; border:1px solid var(--border);
       background:#fff; color:var(--text-muted); font:inherit; font-size:0.72rem;
@@ -803,6 +805,8 @@
       color:var(--text-secondary); font:inherit; font-size:0.82rem; font-weight:500;
       padding:0.42rem 1rem; border-radius:6px; cursor:pointer; }
     .dl-btn:hover { border-color:var(--accent-nova); color:var(--accent-nova); }
+    .dl-btn:disabled, .dl-btn.is-disabled { opacity:0.45; cursor:not-allowed; border-color:var(--border); color:var(--text-muted); }
+    .dl-btn:disabled:hover, .dl-btn.is-disabled:hover { border-color:var(--border); color:var(--text-muted); }
     .dl-note { font-size:0.78rem; color:var(--text-muted); }
     .png-btn { position:absolute; right:2rem; top:1.85rem; appearance:none; border:1px solid var(--border);
       background:#fff; color:var(--text-muted); font:inherit; font-size:0.72rem;
@@ -3041,17 +3045,26 @@ document.getElementById('advResetAll').addEventListener('click', function(){
   $(document).on('click', '#btnXlsx', function(){ doExport(); });
   function update(){
     var el = document.getElementById('xlsxCount');
+    var btn = document.getElementById('btnXlsx');
     if (!el || !window.dtInstance) return;
     var info = dtInstance.page.info();
-    // 검색·필터가 걸렸을 때만 건수를 보여준다 (전체일 때는 숨김)
-    el.textContent = (info.recordsDisplay < info.recordsTotal)
-      ? '총 ' + info.recordsDisplay.toLocaleString() + '건' : '';
+    // 검색·필터로 부분집합일 때만 저장 가능(전체 목록 저장 차단). '전체/All' 필터도 결과가 전체라 자동 차단.
+    var filtered = info.recordsDisplay < info.recordsTotal;
+    el.textContent = filtered
+      ? {% if page.lang == 'en' %}info.recordsDisplay.toLocaleString() + ' results'{% else %}'총 ' + info.recordsDisplay.toLocaleString() + '건'{% endif %} : '';
+    if (btn) {
+      btn.disabled = !filtered;
+      btn.classList.toggle('is-disabled', !filtered);
+      btn.title = filtered ? '' : {% if page.lang == 'en' %}'Apply a search or filter to download'{% else %}'검색·필터를 적용해야 저장할 수 있습니다'{% endif %};
+    }
   }
   // 버튼은 표가 만들어진 뒤에 붙으므로 draw 이벤트에 물린다
   $(document).on('draw.dt init.dt', update);
   setTimeout(update, 1200);
   function doExport(){
     if (!window.dtInstance) return;
+    var _info = dtInstance.page.info();
+    if (_info.recordsDisplay >= _info.recordsTotal) return;   // 전체 목록 저장 차단 (부분집합만 허용)
     var rows = dtInstance.rows({search:'applied'}).data().toArray();
     var byHead = {};
     DATA.combined.neo.forEach(function(r){ byHead[r['표제어']] = r; });
