@@ -36,6 +36,15 @@
 @media (max-width:520px){.pipe-tab{padding:8px 10px;font-size:.8rem;}.donut-box canvas{max-height:230px;}}
 </style>
 <script>
+{%- assign _lang = page.lang | default: 'ko' -%}
+var KNO_LANG = "{{ _lang }}";
+var DONUT_TR = KNO_LANG==='en' ? {
+  '신문 배타 추출 항목':'Newspaper-exclusive','댓글 배타 추출 항목':'Comment-exclusive',
+  '공통 추출 항목':'Common (both corpora)','연구자 직접 수집':'Researcher-collected',
+  '통계 기반 추출':'Statistics-based','패턴 기반 추출':'Pattern-based',
+  '담화 표지 기반 추출':'Discourse-marker-based','복합':'Combined'
+} : {};
+function donutTr(x){ return DONUT_TR[x]!==undefined ? DONUT_TR[x] : x; }
 document.querySelectorAll('.fmt-num').forEach(function(el){
   var n=Number(el.textContent.trim()); if(!isNaN(n)&&el.textContent.trim()!=='') el.textContent=n.toLocaleString('ko-KR');
 });
@@ -49,7 +58,9 @@ document.querySelectorAll('.fmt-pct').forEach(function(el){
 });
 document.querySelectorAll('.fmt-eok').forEach(function(el){
   var w=parseInt(el.getAttribute('data-total-words'));
-  if(!isNaN(w)) el.textContent='말뭉치 약 '+Math.round(w/100000000)+'억 어절';
+  if(isNaN(w)) return;
+  if(KNO_LANG==='en'){ var b=w/1e9; el.textContent='Corpus: ~'+(b>=1?b.toFixed(1):b.toFixed(2))+'B words'; }
+  else { el.textContent='말뭉치 약 '+Math.round(w/100000000)+'억 어절'; }
 });
 // 도넛 — 옵션은 data.html의 주제별 분포 도넛과 같게, 색만 계열별로 나눈다.
 (function(){
@@ -64,7 +75,7 @@ document.querySelectorAll('.fmt-eok').forEach(function(el){
   var isMobile=window.matchMedia('(max-width:640px)').matches;
   document.querySelectorAll('canvas.neo-donut').forEach(function(cv){
     var COLORS=PALETTES[cv.dataset.palette]||PALETTES['기반자료'];
-    var labels=cv.dataset.labels.split('|').filter(Boolean);
+    var labels=cv.dataset.labels.split('|').filter(Boolean).map(donutTr);
     var values=cv.dataset.values.split('|').filter(Boolean).map(Number);
     var total=values.reduce(function(a,b){return a+b;},0);
     new Chart(cv,{
@@ -79,7 +90,7 @@ document.querySelectorAll('.fmt-eok').forEach(function(el){
             :{position:'top',align:'center',labels:{color:'#1a2540',font:{size:13},padding:18,boxWidth:14,usePointStyle:true}},
           tooltip:{boxPadding:8,padding:10,callbacks:{label:function(ctx){
             var pct=total>0?((ctx.raw/total)*100).toFixed(1):0;
-            return ctx.label+': '+ctx.raw.toLocaleString('ko-KR')+'개 ('+pct+'%)';
+            return ctx.label+': '+ctx.raw.toLocaleString(KNO_LANG==='en'?'en-US':'ko-KR')+(KNO_LANG==='en'?' ':'개 ')+'('+pct+'%)';
           }}},
           datalabels:{display:false}
         }}

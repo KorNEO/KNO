@@ -1,9 +1,20 @@
+---
+---
+{%- comment -%} i18n: 언어별 사전·경로 접두사. page.lang 미지정 시 한국어. {%- endcomment -%}
+{%- assign lang = page.lang | default: 'ko' -%}
+{%- assign t = site.data.i18n[lang] -%}
+{%- if lang == 'en' -%}{%- assign base = '/en' -%}{%- assign altlang = 'ko' -%}
+{%- else -%}{%- assign base = '' -%}{%- assign altlang = 'en' -%}{%- endif -%}
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="{{ lang }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% seo %}
+  {%- if page.alt_url -%}
+  <link rel="alternate" hreflang="{{ lang }}" href="{{ page.url | absolute_url }}">
+  <link rel="alternate" hreflang="{{ altlang }}" href="{{ page.alt_url | absolute_url }}">
+  {%- endif -%}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
@@ -13,8 +24,8 @@
 </head>
 <body>
   <nav class="top-nav">
-    <a href="{{ '/' | relative_url }}" class="nav-logo">한국어 신어 관측 시스템</a>
-    <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기" aria-expanded="false">
+    <a href="{{ base | append: '/' | relative_url }}" class="nav-logo">{{ t.nav.logo }}</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="{{ t.nav.menu_open }}" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
@@ -22,11 +33,17 @@
     {%- comment -%} 현재 위치 판별 — reports/ 하위(월별·누적 보고)도 '신어 관측 보고'가 켜져야 한다 {%- endcomment -%}
     {%- assign u = page.url -%}
     <div class="nav-links">
-      <a href="{{ '/' | relative_url }}"{% if u == '/' %} class="is-current" aria-current="page"{% endif %}>홈</a>
-      <a href="{{ '/reports/' | relative_url }}"{% if u contains '/reports/' %} class="is-current" aria-current="page"{% endif %}>신어 관측 보고</a>
-      <a href="{{ '/data.html' | relative_url }}"{% if u contains '/data' %} class="is-current" aria-current="page"{% endif %}>신어별 관측 데이터</a>
-      <a href="{{ '/about/' | relative_url }}"{% if u contains '/about' %} class="is-current" aria-current="page"{% endif %}>프로젝트 소개</a>
-      <a href="https://github.com/KorNEO/KNO" target="_blank">GitHub</a>
+      <a href="{{ base | append: '/' | relative_url }}"{% if u == '/' or u == '/en/' %} class="is-current" aria-current="page"{% endif %}>{{ t.nav.home }}</a>
+      <a href="{{ base | append: '/reports/' | relative_url }}"{% if u contains '/reports/' %} class="is-current" aria-current="page"{% endif %}>{{ t.nav.reports }}</a>
+      <a href="{{ base | append: '/data.html' | relative_url }}"{% if u contains '/data' %} class="is-current" aria-current="page"{% endif %}>{{ t.nav.data }}</a>
+      <a href="{{ base | append: '/about/' | relative_url }}"{% if u contains '/about' %} class="is-current" aria-current="page"{% endif %}>{{ t.nav.about }}</a>
+      <a href="https://github.com/KorNEO/KNO" target="_blank">{{ t.nav.github }}</a>
+      {%- if page.alt_url -%}
+      <a href="{{ page.alt_url | relative_url }}" class="nav-lang" lang="{{ altlang }}" title="{% if lang == 'ko' %}View in English{% else %}한국어로 보기{% endif %}">
+        <svg class="nav-lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9z"/></svg>
+        <span class="nav-lang-label">{% if lang == 'ko' %}English{% else %}한국어{% endif %}</span>
+      </a>
+      {%- endif -%}
     </div>
   </nav>
 
@@ -35,7 +52,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>&copy; {{ 'now' | date: "%Y" }} KNO · Korean Neologism Observatory</p>
+    <p>&copy; {{ 'now' | date: "%Y" }} {{ t.footer.copyright }}</p>
   </footer>
   <script>
   (function() {

@@ -1,19 +1,16 @@
 ---
 layout: default
-title: 신어 관측 보고
-lang: ko
-alt_url: /en/reports/
+title: Observation Reports
+lang: en
+alt_url: /reports/
+permalink: /en/reports/
 ---
 
 <div class="page-header">
-  <h1>신어 관측 보고</h1>
-  <p>2025년 1월 이후의 신어 관측 결과를 월별로 보고합니다.</p>
+  <h1>Observation Reports</h1>
+  <p>Monthly reports of Korean neologism observations since January 2025.</p>
 </div>
 
-{%- comment -%}
-  누적 통계는 데이터의 '누적' 항목을 그대로 쓴다.
-  月 항목을 for로 합산하면 안 된다 — 같은 dict에 '누적'이 함께 들어 있어 두 번 세어진다.
-{%- endcomment -%}
 {%- assign cum = site.data.pipeline_monthly['누적'] -%}
 {%- assign cum_final = cum['최종'] -%}
 {%- assign cum_extract = cum['말뭉치추출'] -%}
@@ -22,40 +19,40 @@ alt_url: /en/reports/
 
 {%- assign first_period = "" -%}
 {%- assign last_period = "" -%}
-{%- assign sorted_reports = site.reports | sort: 'date' -%}
+{%- assign sorted_reports = site.reports_en | sort: 'date' -%}
 {%- for report in sorted_reports -%}
   {%- if first_period == "" and report.period -%}{%- assign first_period = report.period | split: "~" | first | strip -%}{%- endif -%}
   {%- if report.period -%}{%- assign last_period = report.period | split: "~" | last | strip -%}{%- endif -%}
 {%- endfor -%}
 
-{% assign reports = site.reports | sort: 'date' | reverse %}
+{% assign reports = site.reports_en | sort: 'date' | reverse %}
 {% if reports.size > 0 %}
 <ul class="report-list">
   <li>
-    <a href="{{ '/reports/cumulative/' | relative_url }}" class="report-card cumulative-card">
+    <a href="{{ '/en/reports/cumulative/' | relative_url }}" class="report-card cumulative-card">
       <span class="card-date">{{ first_period }} ~ {{ last_period }}</span>
       <div class="cumulative-title-row">
-        <div class="card-title">누적 관측 결과</div>
+        <div class="card-title">Cumulative results</div>
         <div class="summary-neo-badge">
           <span class="neo-badge-count fmt-num">{{ cum_final }}</span>
-          <span class="neo-badge-unit">개 신어 관측!</span>
+          <span class="neo-badge-unit">neologisms observed!</span>
         </div>
       </div>
-      <div class="card-summary">{{ reports.size }}건의 관측 보고를 합산한 누적 결과입니다.</div>
+      <div class="card-summary">Cumulative results across {{ reports.size }} observation reports.</div>
       <div class="cumulative-stats">
         <div class="cum-stat">
           <span class="cum-stat-value fmt-eok" data-total-words="{{ cum_words }}">-</span>
-          <span class="cum-stat-label">신어 기반 자료</span>
+          <span class="cum-stat-label">Neologism-based data</span>
         </div>
         <div class="cum-stat-divider"></div>
         <div class="cum-stat">
           <span class="cum-stat-value fmt-num">{{ cum_extract }}</span>
-          <span class="cum-stat-label">말뭉치 추출 신어</span>
+          <span class="cum-stat-label">Corpus-extracted neologisms</span>
         </div>
         <div class="cum-stat-divider"></div>
         <div class="cum-stat">
           <span class="cum-stat-value fmt-num">{{ cum_manual }}</span>
-          <span class="cum-stat-label">수작업 수집 신어</span>
+          <span class="cum-stat-label">Manually collected neologisms</span>
         </div>
       </div>
     </a>
@@ -70,26 +67,27 @@ alt_url: /en/reports/
       {% if report.summary %}<div class="card-summary">{{ report.summary }}</div>{% endif %}
       <div class="card-tags">
         {% if report.period %}<span class="tag">{{ report.period }}</span>{% endif %}
-        {% if rc %}<span class="tag fmt-eok" data-total-words="{{ rc['총어절'] }}">말뭉치</span>{% endif %}
-        {% if rp %}<span class="tag">신어 {{ rp['최종'] }}개 관측!</span>{% endif %}
+        {% if rc %}<span class="tag fmt-eok" data-total-words="{{ rc['총어절'] }}">Corpus</span>{% endif %}
+        {% if rp %}<span class="tag">{{ rp['최종'] }} neologisms observed</span>{% endif %}
       </div>
     </a>
   </li>
   {% endfor %}
 </ul>
 {% else %}
-<div class="empty-state"><p>아직 관측 보고가 없습니다. 곧 첫 번째 보고가 등록됩니다.</p></div>
+<div class="empty-state"><p>No reports yet. The first report will be posted soon.</p></div>
 {% endif %}
 
 <script>
 document.querySelectorAll('.fmt-eok').forEach(function(el){
   var w=parseInt(el.getAttribute('data-total-words'));
   if(!isNaN(w)){
-    var eok=Math.round(w/100000000);
-    el.textContent=el.classList.contains('tag') ? '말뭉치 약 '+eok+'억 어절' : '약 '+eok+'억 어절';
+    var eok=(w/1000000000);
+    var val=eok>=1?eok.toFixed(1):eok.toFixed(2);
+    el.textContent=el.classList.contains('tag') ? 'Corpus: ~'+val+'B words' : '~'+val+'B words';
   }
 });
 document.querySelectorAll('.fmt-num').forEach(function(el){
-  var n=Number(el.textContent.trim()); if(!isNaN(n)&&el.textContent.trim()!=='') el.textContent=n.toLocaleString('ko-KR');
+  var n=Number(el.textContent.trim()); if(!isNaN(n)&&el.textContent.trim()!=='') el.textContent=n.toLocaleString('en-US');
 });
 </script>

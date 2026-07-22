@@ -1,0 +1,59 @@
+---
+layout: default
+title: Cumulative results
+lang: en
+alt_url: /reports/cumulative/
+permalink: /en/reports/cumulative/
+---
+{%- assign p = site.data.pipeline_monthly['누적'] -%}
+{%- assign c = site.data.corpus_monthly['누적'] -%}
+{%- assign first_period = "" -%}
+{%- assign last_period = "" -%}
+{%- assign sorted_reports = site.reports_en | sort: 'date' -%}
+{%- for report in sorted_reports -%}
+  {%- if first_period == "" and report.period -%}{%- assign first_period = report.period | split: "~" | first | strip -%}{%- endif -%}
+  {%- if report.period -%}{%- assign last_period = report.period | split: "~" | last | strip -%}{%- endif -%}
+{%- endfor -%}
+
+<article class="report-article">
+  <nav class="report-breadcrumb">
+    <a href="{{ '/en/reports/' | relative_url }}">&larr; All observation reports</a>
+  </nav>
+  <header class="report-header">
+    <h1>Cumulative results</h1>
+    <p class="report-summary">Cumulative results across {{ sorted_reports.size }} observation reports.</p>
+    <div class="report-meta">
+      <span class="tag">{{ first_period }} ~ {{ last_period }}</span>
+      <span class="tag fmt-eok" data-total-words="{{ c['총어절'] }}">Corpus</span>
+      <span class="tag">{{ p['최종'] }} neologisms observed</span>
+    </div>
+  </header>
+
+  <div class="report-body">
+
+    <div class="report-summary-box">
+      <div class="summary-top">
+        <h2>Neologisms collected since {{ first_period | slice: 0,4 }}</h2>
+      </div>
+      <div class="neo-breakdown">
+        <div class="nb-item"><span class="nb-num fmt-num">{{ p['말뭉치추출'] }}</span><span class="nb-label">Corpus-extracted neologisms</span></div>
+        <div class="nb-plus">+</div>
+        <div class="nb-item"><span class="nb-num fmt-num">{{ p['수작업'] }}</span><span class="nb-label">Manually collected neologisms</span></div>
+        <div class="nb-plus">=</div>
+        <div class="nb-item nb-total"><span class="nb-num fmt-num">{{ p['최종'] }}</span><span class="nb-label">Final neologism count</span></div>
+      </div>
+    </div>
+
+    <h2>Candidate extraction, filtering, and adjudication</h2>
+    {% include pipeline_tabs.html p=p %}
+
+    <h2>Distribution of corpus-extracted neologisms</h2>
+    {% include neo_donuts.html p=p id="cumulative" %}
+
+    <h2>Size of neologism-based data</h2>
+    {% include corpus_table.html c=c %}
+
+  </div>
+</article>
+
+{% include report_assets.html %}

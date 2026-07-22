@@ -1,10 +1,15 @@
 ---
 layout: default
 title: KNO
-lang: ko
-alt_url: /en/
+lang: en
+alt_url: /
 ---
-
+{%- comment -%}
+  English home. Static UI text below is a DRAFT (terminology pass pending).
+  The <script> block is intentionally still identical to the Korean home for now —
+  its in-chart labels (topics, months, etc.) overlap with data.html terminology and
+  will be unified in the terminology pass, ideally by extracting a shared include.
+{%- endcomment -%}
 {%- assign neo_total = 0 -%}
 {%- for report in site.reports -%}
   {%- if report.neologism_count -%}
@@ -14,39 +19,41 @@ alt_url: /en/
 
 <div class="hero">
   <img src="{{ '/img/KNO.png' | relative_url }}" alt="KNO" class="hero-logo">
-  <p class="hero-stat">2025년 1월 이후, 누적 관측 신어 <span class="fmt-num">{{ neo_total }}</span>개!</p>
-  <p class="hero-source">(&lt;네이버 뉴스&gt; 최초 출현 기준)</p>
+  <p class="hero-stat"><span class="fmt-num">{{ neo_total }}</span> neologisms observed since January 2025</p>
+  <p class="hero-source">(based on first appearance in &lt;Naver News&gt;)</p>
 </div>
 
 <div class="section overview">
   <h2>KNO: Korean Neologism Observatory</h2>
-  <p><strong>KNO</strong>는 한국어에 새롭게 출현한 단어나 구를 월 단위로 수집하고, 그 사용 양상을 분석하여 기록하는 시스템입니다.</p>
+  <p><strong>KNO</strong> is a system that collects newly emerging Korean words and phrases on a monthly basis, analyzes how they are used, and records the results.</p>
 </div>
 
 <div class="section">
-  <h2>가장 높은 빈도로 나타난 신어 <span class="hint-tip">신어를 클릭하면 최초 출현 기사로 이동합니다.</span></h2>
+  <h2>Most frequent neologisms <span class="hint-tip">Click a neologism to open its first-appearance article.</span></h2>
   <div id="featuredHighFreq" class="featured-neo">
-    <div class="empty-state"><p>데이터 로딩 중...</p></div>
+    <div class="empty-state"><p>Loading data…</p></div>
   </div>
 </div>
 
 <div class="section">
-  <h2>가장 최근에 나타난 신어 <span class="hint-tip">신어를 클릭하면 최초 출현 기사로 이동합니다.</span></h2>
+  <h2>Most recent neologisms <span class="hint-tip">Click a neologism to open its first-appearance article.</span></h2>
   <div id="featuredRecent" class="featured-neo">
-    <div class="empty-state"><p>데이터 로딩 중...</p></div>
+    <div class="empty-state"><p>Loading data…</p></div>
   </div>
 </div>
 
 <div class="section">
-  <h2>관측자가 소개하고 싶은 흥미로운 신어 <span class="hint-tip">신어를 클릭하면 최초 출현 기사로 이동합니다.</span></h2>
+  <h2>Observer's pick <span class="hint-tip">Click a neologism to open its first-appearance article.</span></h2>
   <div id="featuredPick" class="featured-neo">
-    <div class="empty-state"><p>데이터 로딩 중...</p></div>
+    <div class="empty-state"><p>Loading data…</p></div>
   </div>
 </div>
 
 <script>
-const MONTHS = ['2025년 1월','2025년 2월','2025년 3월','2025년 4월','2025년 5월','2025년 6월','2025년 7월','2025년 8월','2025년 9월','2025년 10월','2025년 11월','2025년 12월'];
+const MONTHS = ['2025.01','2025.02','2025.03','2025.04','2025.05','2025.06','2025.07','2025.08','2025.09','2025.10','2025.11','2025.12'];
+// SECTIONS: Korean keys used to look up d['주제별 상대빈도'][s]; SECTIONS_EN is display only.
 const SECTIONS = ['정치','경제','사회','생활/문화','IT/과학','세계','연예','스포츠'];
+const SECTIONS_EN = ['Politics','Economy','Society','Life & Culture','IT & Science','World','Entertainment','Sports'];
 const pieColors = [
   'rgba(30,58,138,0.78)', 'rgba(37,99,235,0.72)', 'rgba(124,58,237,0.72)', 'rgba(14,116,144,0.72)',
   'rgba(194,65,12,0.72)', 'rgba(202,138,4,0.72)', 'rgba(15,118,110,0.72)', 'rgba(190,18,60,0.72)'
@@ -55,7 +62,7 @@ const pieColors = [
 // 관측자 추천 신어 (수동 설정)
 const OBSERVER_PICK = '디지털 월세';
 
-fetch('./assets/data/neo_data_712.json')
+fetch('../assets/data/neo_data_712.json')
   .then(r => r.json())
   .then(data => {
     const highFreq = [...data].sort((a, b) => b['단어빈도_전체'] - a['단어빈도_전체'])[0];
@@ -68,7 +75,7 @@ fetch('./assets/data/neo_data_712.json')
     ].forEach(f => renderFeatured(f.id, f.d));
   })
   .catch(err => {
-    console.error('데이터 로딩 실패:', err);
+    console.error('Data load failed:', err);
   });
 
 function renderFeatured(containerId, d) {
@@ -78,21 +85,21 @@ function renderFeatured(containerId, d) {
 
   const maxVal = Math.max(...monthlyFreq);
   const maxIdx = monthlyFreq.indexOf(maxVal);
-  const maxLabel = '최고 빈도(' + MONTHS[maxIdx] + '): <span style="color:#1e3a8a;font-weight:600">' + maxVal.toLocaleString() + '회</span>';
+  const maxLabel = 'Peak (' + MONTHS[maxIdx] + '): <span style="color:#1e3a8a;font-weight:600">' + maxVal.toLocaleString() + '</span>';
 
   container.innerHTML = `
     <div class="featured-neo-header">
       <a href="${d['기사문 URL'] || '#'}" target="_blank" class="featured-neo-title">${d['표제어']}</a>
-      <span class="featured-neo-meta">최초 출현일: ${d['최초 출현일']} · 총빈도: ${totalFreq.toLocaleString()}</span>
+      <span class="featured-neo-meta">First attestation: ${d['최초 출현일']} · Total: ${totalFreq.toLocaleString()}</span>
     </div>
     <div class="featured-neo-charts">
       <div class="featured-chart-box" style="position:relative">
-        <h4>월별 상대빈도 추이</h4>
+        <h4>Monthly RelFreq</h4>
         <div style="position:absolute;top:0.8rem;right:1rem;font-size:0.75rem;color:var(--text-secondary);text-align:right">${maxLabel}</div>
         <canvas id="${containerId}ChartTF"></canvas>
       </div>
       <div class="featured-chart-box">
-        <h4>텍스트 주제별 분포</h4>
+        <h4>Distribution by text topic</h4>
         <canvas id="${containerId}ChartPMW"></canvas>
       </div>
     </div>
@@ -145,7 +152,7 @@ function renderFeatured(containerId, d) {
   new Chart(document.getElementById(`${containerId}ChartPMW`), {
     type: 'doughnut',
     data: {
-      labels: SECTIONS,
+      labels: SECTIONS_EN,
       datasets: [{
         data: pmwData,
         backgroundColor: pieColors,
@@ -190,7 +197,7 @@ document.querySelectorAll('.fmt-num').forEach(function(el) {
   var text = el.textContent.trim();
   var num = Number(text);
   if (!isNaN(num) && text !== '') {
-    el.textContent = num.toLocaleString('ko-KR');
+    el.textContent = num.toLocaleString('en-US');
   }
 });
 </script>

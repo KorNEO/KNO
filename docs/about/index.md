@@ -1,6 +1,8 @@
 ---
 layout: default
 title: KNO 소개
+lang: ko
+alt_url: /en/about/
 ---
 
 <div class="intro-header">

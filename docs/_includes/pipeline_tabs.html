@@ -3,9 +3,13 @@
   표는 기존 리포트 표 디자인 그대로(정제 단계 / 정제 후 항목 수 / 비율, .step-desc, .highlight-row).
   단계별 정제는 소스별로만 존재한다(통합 dedup 값이 원 자료에 없음) → 통합 탭은 M2/M3/M4 요약.
   파라미터 p = pipeline_monthly의 한 달(또는 '누적') 항목.
+  lanes(통합/신문/댓글)는 데이터 키라 한국어 유지. 표시 라벨만 언어 전환.
 {%- endcomment -%}
+{%- assign lang = page.lang | default: 'ko' -%}
+{%- assign t = site.data.i18n[lang] -%}
 {%- assign lanes = "통합,신문,댓글" | split: "," -%}
-{%- assign lane_labels = "통합,신문 말뭉치,댓글 말뭉치" | split: "," -%}
+{%- if lang == 'en' -%}{%- assign lane_labels = "Combined,Newspaper corpus,Comment corpus" | split: "," -%}
+{%- else -%}{%- assign lane_labels = "통합,신문 말뭉치,댓글 말뭉치" | split: "," -%}{%- endif -%}
 <div class="pipe-tabs" role="tablist">
   {%- for lane in lanes -%}
   <button type="button" class="pipe-tab{% if forloop.first %} is-on{% endif %}"
@@ -19,9 +23,9 @@
     <table>
       <thead>
         <tr>
-          <th>수집 단계</th>
-          <th>항목 수</th>
-          <th>비율</th>
+          <th>{{ t.reports.stage }}</th>
+          <th>{{ t.reports.items }}</th>
+          <th>{{ t.reports.share }}</th>
         </tr>
       </thead>
       <tbody>

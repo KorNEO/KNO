@@ -4,15 +4,17 @@
   화용 표지 말뭉치는 별도 구축이라 비율을 '-'로 둔다.
   파라미터 c = corpus_monthly의 한 달(또는 '누적') 항목.
 {%- endcomment -%}
+{%- assign lang = page.lang | default: 'ko' -%}
+{%- assign t = site.data.i18n[lang] -%}
 <div class="table-wrap">
   <table class="corpus-table">
     <thead>
       <tr>
-        <th>출처</th>
-        <th>구축 방식</th>
-        <th>텍스트 주제</th>
-        <th>어절 수</th>
-        <th>비율(%)</th>
+        <th>{{ t.reports.ct_source }}</th>
+        <th>{{ t.reports.ct_way }}</th>
+        <th>{{ t.reports.ct_topic }}</th>
+        <th>{{ t.reports.ct_words }}</th>
+        <th>{{ t.reports.ct_share }}</th>
       </tr>
     </thead>
     <tbody>
@@ -20,35 +22,35 @@
       {%- for sk in sources -%}
       {%- assign cs = include.c[sk] -%}
       {%- assign span = cs['샘플'].size | plus: 3 -%}
-      {%- for t in cs['샘플'] -%}
+      {%- for t2 in cs['샘플'] -%}
       <tr>
-        {%- if forloop.first -%}<td class="cell-src" rowspan="{{ span }}">{{ sk }} 말뭉치</td>
-        <td class="cell-way" rowspan="{{ cs['샘플'].size | plus: 1 }}">샘플링 말뭉치</td>{%- endif -%}
-        <td>{{ t['t'] }}</td>
-        <td class="num fmt-num">{{ t['w'] }}</td>
-        <td class="num">{{ t['pct'] }}</td>
+        {%- if forloop.first -%}<td class="cell-src" rowspan="{{ span }}">{% if lang == 'en' %}{% if sk == '신문' %}Newspaper{% else %}Comment{% endif %} {{ t.reports.ct_corpus_suffix }}{% else %}{{ sk }} {{ t.reports.ct_corpus_suffix }}{% endif %}</td>
+        <td class="cell-way" rowspan="{{ cs['샘플'].size | plus: 1 }}">{{ t.reports.ct_sampling }}</td>{%- endif -%}
+        <td>{{ t2['t'] }}</td>
+        <td class="num fmt-num">{{ t2['w'] }}</td>
+        <td class="num">{{ t2['pct'] }}</td>
       </tr>
       {%- endfor -%}
       <tr class="subtotal-row">
-        <td>소계</td>
+        <td>{{ t.reports.ct_subtotal }}</td>
         <td class="num fmt-num">{{ cs['샘플합'][1] }}</td>
         <td class="num">100.0</td>
       </tr>
       <tr>
-        <td class="cell-way">화용 표지 말뭉치</td>
+        <td class="cell-way">{{ t.reports.ct_pragmatic }}</td>
         <td>-</td>
         <td class="num fmt-num">{{ cs['화용표지'][1] }}</td>
         <td class="num">-</td>
       </tr>
       <tr class="src-total-row">
-        <td class="cell-way">합계</td>
+        <td class="cell-way">{{ t.reports.ct_total }}</td>
         <td>-</td>
         <td class="num fmt-num">{{ cs['샘플합'][1] | plus: cs['화용표지'][1] }}</td>
         <td class="num">-</td>
       </tr>
       {%- endfor -%}
       <tr class="total-row">
-        <td class="cell-total" colspan="3">총 합계</td>
+        <td class="cell-total" colspan="3">{{ t.reports.ct_grand }}</td>
         <td class="num fmt-num">{{ include.c['총어절'] }}</td>
         <td class="num">-</td>
       </tr>

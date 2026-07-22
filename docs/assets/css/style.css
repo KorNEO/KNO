@@ -67,6 +67,9 @@ body {
 }
 
 .nav-links a:hover { color: var(--accent-nova); }
+.nav-links .nav-lang { display:inline-flex; align-items:center; gap:0.35rem; margin-left:0.4rem; padding-left:0.8rem; border-left:1px solid var(--border); }
+.nav-lang-globe { width:15px; height:15px; flex:0 0 auto; }
+.nav-links .nav-lang-label { font-size:0.85rem; }
 
 /* 현재 보고 있는 탭 — 색만으로는 약해서 아래 밑줄을 같이 준다 */
 .nav-links a.is-current {

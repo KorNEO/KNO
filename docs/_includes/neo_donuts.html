@@ -4,9 +4,11 @@
   도넛 옵션·색은 data.html의 주제별 분포 도넛과 같은 것을 쓴다.
   파라미터 p = pipeline_monthly의 한 달(또는 '누적') 항목, id = 페이지 내 고유 접두사.
 {%- endcomment -%}
+{%- assign lang = page.lang | default: 'ko' -%}
 <div class="donut-pair">
   {%- assign donut_keys = "추출데이터,방법론" | split: "," -%}
-  {%- assign donut_titles = "신어 기반 자료별 분포,신어 추출 방법론별 분포" | split: "," -%}
+  {%- if lang == 'en' -%}{%- assign donut_titles = "Distribution by source data,Distribution by extraction method" | split: "," -%}
+  {%- else -%}{%- assign donut_titles = "신어 기반 자료별 분포,신어 추출 방법론별 분포" | split: "," -%}{%- endif -%}
   {%- assign donut_palettes = "기반자료,방법론" | split: "," -%}
   {%- for gk in donut_keys -%}
   {%- capture cid %}{{ include.id }}-{{ gk }}{% endcapture -%}

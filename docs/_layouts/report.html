@@ -1,21 +1,24 @@
 ---
 layout: default
 ---
+{%- assign lang = page.lang | default: 'ko' -%}
+{%- assign t = site.data.i18n[lang] -%}
+{%- if lang == 'en' -%}{%- assign base = '/en' -%}{%- else -%}{%- assign base = '' -%}{%- endif -%}
 {%- assign ym = page.yyyymm -%}
 {%- assign p = site.data.pipeline_monthly[ym] -%}
 {%- assign c = site.data.corpus_monthly[ym] -%}
 
 <article class="report-article">
   <nav class="report-breadcrumb">
-    <a href="{{ '/reports/' | relative_url }}">&larr; 전체 관측 보고 목록</a>
+    <a href="{{ base | append: '/reports/' | relative_url }}">&larr; {{ t.reports.back_list }}</a>
   </nav>
   <header class="report-header">
     <h1>{{ page.title }}</h1>
     {% if page.summary %}<p class="report-summary">{{ page.summary }}</p>{% endif %}
     <div class="report-meta">
       {% if page.period %}<span class="tag">{{ page.period }}</span>{% endif %}
-      <span class="tag fmt-eok" data-total-words="{{ c['총어절'] }}">말뭉치</span>
-      <span class="tag">신어 {{ p['최종'] }}개 관측</span>
+      <span class="tag fmt-eok" data-total-words="{{ c['총어절'] }}">{{ t.reports.corpus }}</span>
+      <span class="tag">{% if lang == 'en' %}{{ p['최종'] }} neologisms observed{% else %}신어 {{ p['최종'] }}개 관측{% endif %}</span>
     </div>
   </header>
 
@@ -24,27 +27,27 @@ layout: default
     {%- comment -%} ── 최종 신어 요약 ── {%- endcomment -%}
     <div class="report-summary-box">
       <div class="summary-top">
-        <h2>{{ ym | slice: 0,4 }}년 {{ ym | slice: 4,2 | times: 1 }}월 신어 수집 결과</h2>
+        <h2>{% if lang == 'en' %}Neologisms collected in {{ ym | slice: 0,4 }}.{{ ym | slice: 4,2 }}{% else %}{{ ym | slice: 0,4 }}년 {{ ym | slice: 4,2 | times: 1 }}월 신어 수집 결과{% endif %}</h2>
       </div>
       <div class="neo-breakdown">
-        <div class="nb-item"><span class="nb-num fmt-num">{{ p['말뭉치추출'] }}</span><span class="nb-label">말뭉치 추출 신어</span></div>
+        <div class="nb-item"><span class="nb-num fmt-num">{{ p['말뭉치추출'] }}</span><span class="nb-label">{{ t.reports.extracted }}</span></div>
         <div class="nb-plus">+</div>
-        <div class="nb-item"><span class="nb-num fmt-num">{{ p['수작업'] }}</span><span class="nb-label">수작업 수집 신어</span></div>
+        <div class="nb-item"><span class="nb-num fmt-num">{{ p['수작업'] }}</span><span class="nb-label">{{ t.reports.manual }}</span></div>
         <div class="nb-plus">=</div>
-        <div class="nb-item nb-total"><span class="nb-num fmt-num">{{ p['최종'] }}</span><span class="nb-label">최종 신어 수</span></div>
+        <div class="nb-item nb-total"><span class="nb-num fmt-num">{{ p['최종'] }}</span><span class="nb-label">{{ t.reports.final }}</span></div>
       </div>
     </div>
 
     {%- comment -%} ── ① 파이프라인 (통합 / 신문 / 댓글 탭) ── {%- endcomment -%}
-    <h2>신어 후보군 추출·정제·판별 결과</h2>
+    <h2>{{ t.reports.h_pipeline }}</h2>
     {% include pipeline_tabs.html p=p %}
 
     {%- comment -%} ── ② 말뭉치 추출 신어의 분포 (도넛 2개) ── {%- endcomment -%}
-    <h2>말뭉치 추출 신어의 분포</h2>
+    <h2>{{ t.reports.h_dist }}</h2>
     {% include neo_donuts.html p=p id=page.yyyymm %}
 
     {%- comment -%} ── ③ 신어 기반 자료 규모 ── {%- endcomment -%}
-    <h2>신어 기반 자료 규모</h2>
+    <h2>{{ t.reports.h_corpus_size }}</h2>
     {% include corpus_table.html c=c %}
 
     {{ content }}

@@ -1,0 +1,89 @@
+# 한국어 UI 문자열 사전 (KNO 영문판 i18n)
+# 값 = 현재 한국어. 영어는 en.yml. 신어·용례·기사문·데이터 키는 여기 없음(번역 대상 아님).
+
+lang:
+  code: ko
+  label_ko: 한국어
+  label_en: English
+
+nav:
+  logo: 한국어 신어 관측 시스템
+  home: 홈
+  reports: 신어 관측 보고
+  data: 신어별 관측 데이터
+  about: 프로젝트 소개
+  github: GitHub
+  menu_open: 메뉴 열기
+
+footer:
+  copyright: KNO · Korean Neologism Observatory
+
+data:
+  index_title: "한국어 신어 목록"
+  index_desc: "신어 수집·분석용 말뭉치에서 수집된 한국어 신어 목록입니다. 각 신어를 클릭하면 상세 관측 결과를 확인하실 수 있습니다."
+  search_basic: "일반 검색"
+  search_adv: "상세 검색"
+  search_help: "검색 도움말"
+  search_ph: "표제어를 입력하세요"
+  search_btn: "검색"
+  g_entry: "표제항 정보"
+  f_year: "수집 연도"
+  f_sem: "의미 범주"
+  f_dom: "전문 분야"
+  g_diffusion: "확산 유형"
+  f_persistence: "사용의 지속성"
+  f_genre: "사용의 보편성(장르)"
+  f_topic: "사용의 보편성(주제)"
+  g_freq: "빈도"
+  f_relfreq_nv: "상대빈도 (신문 말뭉치)"
+  f_relfreq_yt: "상대빈도 (댓글 말뭉치)"
+  f_absfreq_nv: "절대빈도 (신문 말뭉치)"
+  f_absfreq_yt: "절대빈도 (댓글 말뭉치)"
+  reset_all: "전체 초기화"
+  opt_all: "전체"
+  tab_combined: "통합"
+  tab_nv: "신문 말뭉치"
+  tab_yt: "댓글 말뭉치"
+  loading: "데이터를 불러오는 중..."
+  m_entry: "표제항 정보"
+  m_diffusion: "확산 유형"
+  m_freqdist: "빈도 및 분포"
+  m_freqtime: "사용 추이 (2020.01 ~ 2025.12)"
+  m_crosscorpus: "상대빈도 비율 추이"
+  m_media: "사용 매체 수"
+  m_speaker: "사용 화자 수"
+  m_collocate: "공기어 네트워크"
+  m_ngram: "N-GRAM 분석"
+  m_examples: "용례"
+  resolution: "해상도"
+
+reports:
+  back_list: "전체 관측 보고 목록"
+  corpus: "말뭉치"
+  extracted: "말뭉치 추출 신어"
+  manual: "수작업 수집 신어"
+  final: "최종 신어 수"
+  h_pipeline: "신어 후보군 추출·정제·판별 결과"
+  h_dist: "말뭉치 추출 신어의 분포"
+  h_corpus_size: "신어 기반 자료 규모"
+  stage: "수집 단계"
+  items: "항목 수"
+  share: "비율"
+  donut_src: "신어 기반 자료별 분포"
+  donut_method: "신어 추출 방법론별 분포"
+  ct_source: "출처"
+  ct_way: "구축 방식"
+  ct_topic: "텍스트 주제"
+  ct_words: "어절 수"
+  ct_share: "비율(%)"
+  ct_corpus_suffix: "말뭉치"
+  ct_sampling: "샘플링 말뭉치"
+  ct_pragmatic: "화용 표지 말뭉치"
+  ct_subtotal: "소계"
+  ct_total: "합계"
+  ct_grand: "총 합계"
+  list_title: "신어 관측 보고"
+  list_desc: "2025년 1월 이후의 신어 관측 결과를 월별로 보고합니다."
+  cumulative: "누적 관측 결과"
+  cum_data: "신어 기반 자료"
+  empty: "아직 관측 보고가 없습니다. 곧 첫 번째 보고가 등록됩니다."

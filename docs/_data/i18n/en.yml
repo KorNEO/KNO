@@ -1,0 +1,90 @@
+# English UI string dictionary (KNO English edition i18n)
+# NOTE: nav/structural terms below are DRAFTS from the plan §3-1 — confirm in the terminology pass.
+# Content keys (data.html labels, filter labels, 60 category labels, etc.) are added later WITH 안진산.
+
+lang:
+  code: en
+  label_ko: 한국어
+  label_en: English
+
+nav:
+  logo: Korean Neologism Observatory   # 확정 (로고)
+  home: Home
+  reports: Observation Reports
+  data: Observation Data
+  about: About
+  github: GitHub
+  menu_open: Open menu
+
+footer:
+  copyright: KNO · Korean Neologism Observatory
+
+data:
+  index_title: "Korean Neologism Index"
+  index_desc: "List of Korean neologisms collected from the corpora used for detection and analysis. Click a neologism to see its detailed observation results."
+  search_basic: "Basic search"
+  search_adv: "Advanced search"
+  search_help: "Search help"
+  search_ph: "Enter a headword"
+  search_btn: "Search"
+  g_entry: "Entry information"
+  f_year: "Year collected"
+  f_sem: "Semantic category"
+  f_dom: "Specialized field"
+  g_diffusion: "Diffusion type"
+  f_persistence: "Persistence of use"
+  f_genre: "Genre diffusion"
+  f_topic: "Topic diffusion"
+  g_freq: "Frequency"
+  f_relfreq_nv: "RelFreq (Newspaper corpus)"
+  f_relfreq_yt: "RelFreq (Comment corpus)"
+  f_absfreq_nv: "AbsFreq (Newspaper corpus)"
+  f_absfreq_yt: "AbsFreq (Comment corpus)"
+  reset_all: "Reset all"
+  opt_all: "All"
+  tab_combined: "Combined"
+  tab_nv: "Newspaper corpus"
+  tab_yt: "Comment corpus"
+  loading: "Loading data…"
+  m_entry: "Entry information"
+  m_diffusion: "Diffusion type"
+  m_freqdist: "Frequency and distribution"
+  m_freqtime: "Frequency over time (2020.01–2025.12)"
+  m_crosscorpus: "Cross-corpus share over time"
+  m_media: "Number of media sources"
+  m_speaker: "Number of speakers"
+  m_collocate: "Collocate network"
+  m_ngram: "N-gram analysis"
+  m_examples: "Examples"
+  resolution: "Resolution"
+
+reports:
+  back_list: "All observation reports"
+  corpus: "Corpus"
+  extracted: "Corpus-extracted neologisms"
+  manual: "Manually collected neologisms"
+  final: "Final neologism count"
+  h_pipeline: "Candidate extraction, filtering, and adjudication"
+  h_dist: "Distribution of corpus-extracted neologisms"
+  h_corpus_size: "Size of neologism-based data"
+  stage: "Stage"
+  items: "Items"
+  share: "Share"
+  donut_src: "Distribution by source data"
+  donut_method: "Distribution by extraction method"
+  ct_source: "Source"
+  ct_way: "Construction"
+  ct_topic: "Text topic"
+  ct_words: "Words"
+  ct_share: "Share (%)"
+  ct_corpus_suffix: "corpus"
+  ct_sampling: "Sampling corpus"
+  ct_pragmatic: "Pragmatic-marker corpus"
+  ct_subtotal: "Subtotal"
+  ct_total: "Total"
+  ct_grand: "Grand total"
+  list_title: "Observation Reports"
+  list_desc: "Monthly reports of Korean neologism observations since January 2025."
+  cumulative: "Cumulative results"
+  cum_data: "Neologism-based data"
+  empty: "No reports yet. The first report will be posted soon."
