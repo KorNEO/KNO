@@ -1,59 +1,54 @@
-> [한국어](README.ko.md) | **English**
-
 # 💫 KNO: Korean Neologism Observatory
-- 🔭 [Go to the Korean Neologism Observatory](https://korneo.github.io/KNO/) · [English edition](https://korneo.github.io/KNO/en/)
+- 🔭 [한국어 신어 관측 결과 바로가기](https://korneo.github.io/KNO/)
+- 🌐 [English edition](https://korneo.github.io/KNO/en/)
 
-## 1. Overview
+## 1. 개요
 
 ![KNO](/docs/img/KNO.png)
 
-KNO (Korean Neologism Observatory) is a system that collects and analyzes newly emerging Korean words and expressions on a monthly basis, and observes and publishes their usage patterns.
+KNO(Korean Neologism Observatory)는 한국어에 새롭게 출현하는 단어와 표현을 월 단위로 수집·분석하고, 그 사용 양상을 관측하여 공개하는 시스템입니다.
 
-Running since January 2025, it tracks newly appearing neologisms each month and provides quantitative indicators such as frequency, distribution, media sources, and speakers.
-
-> **Note on language:** The platform interface is available in English, but the neologisms themselves — headwords, usage examples, and source texts — are kept in Korean, as they are the object of study.
+2025년 1월부터 가동되어 매월 새롭게 나타나는 신어를 추적하고, 빈도·분포·사용 매체·사용 화자 등의 정량적 지표를 제공합니다.
 
 ---
 
-## 2. Collection status
+## 2. 한국어 신어 수집 현황
 - Latest Update: 2026.07.21.
 
-| Period | Candidate items | Final neologisms |
+| 수집 기간 | 신어 후보 항목 수 | 최종 신어 수 |
 |------|---|---|
-| Jan 2025 | 5,735,837 | 78 |
-| Feb 2025 | 5,711,551 | 66 |
-| Mar 2025 | 5,702,806 | 58 |
-| Apr 2025 | 5,714,002 | 68 |
-| May 2025 | 5,623,687 | 57 |
-| Jun 2025 | 5,564,883 | 53 |
-| Jul 2025 | 5,730,079 | 58 |
-| Aug 2025 | 5,627,130 | 52 |
-| Sep 2025 | 5,652,049 | 62 |
-| Oct 2025 | 5,749,142 | 53 |
-| Nov 2025 | 5,631,832 | 43 |
-| Dec 2025 | 5,571,185 | 57 |
-| **Total** | **68,014,183** | **705** |
+| 2025년 1월 | 5,735,837 | 78 |
+| 2025년 2월 | 5,711,551 | 66 |
+| 2025년 3월 | 5,702,806 | 58 |
+| 2025년 4월 | 5,714,002 | 68 |
+| 2025년 5월 | 5,623,687 | 57 |
+| 2025년 6월 | 5,564,883 | 53 |
+| 2025년 7월 | 5,730,079 | 58 |
+| 2025년 8월 | 5,627,130 | 52 |
+| 2025년 9월 | 5,652,049 | 62 |
+| 2025년 10월 | 5,749,142 | 53 |
+| 2025년 11월 | 5,631,832 | 43 |
+| 2025년 12월 | 5,571,185 | 57 |
+| **합계** | **68,014,183** | **705** |
 
 ---
 
-## 3. Collection and analysis pipeline
+## 3. 한국어 신어 수집 및 분석의 과정
 
-![Korean Neologism Extraction Pipeline](/docs/img/Korean_Neologism_Extraction_Pipeline.png)
+![신어 수집·분석 파이프라인](/docs/img/Korean_Neologism_Extraction_Pipeline.png)
 
-| Module | Function |
+| 모듈 | 기능 |
 |------|---------|
-| [Module 1] | Large-scale corpus collection |
-| [Module 2] | Candidate extraction |
-| [Module 3] | Candidate filtering |
-| [Module 4] | LLM-assisted adjudication |
-| [Module 5] | LLM-assisted entry writing |
-| [Module 6] | Usage observation (frequency, distribution, number of speakers, etc.) |
+| [모듈 1] | 대규모 말뭉치 수집 |
+| [모듈 2] | 신어 후보군 추출 |
+| [모듈 3] | 신어 후보군 정제 |
+| [모듈 4] | LLM 보조 신어 판별 |
+| [모듈 5] | LLM 보조 신어 집필 |
+| [모듈 6] | 사용 양상 관측(빈도, 분포, 사용 화자 수 등) |
 
 ---
 
-## 4. References
-
-*(Korean-language publications; titles kept in the original.)*
+## 4. 참고문헌
 
 - [안진산·송현주·최준·현영희·이수진·백미경·남길임(2026), 「'한국어 신어 관측 시스템'의 개발과 활용」, 『한국사전학』 제47호.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003344011)
 - [안진산(2026ㄱ), 「실시간 신어 추출 파이프라인의 설계와 검증」, 『한글』 제87권 제1호.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003317307)
@@ -67,40 +62,40 @@ Running since January 2025, it tracks newly appearing neologisms each month and 
 
 ---
 
-## 🧑‍🏫 Core contributors
+## 🧑‍🏫 주요 기여자
 
-- **남길임 (Kilim Nam)**<br>
-  Professor, Dept. of Korean Language and Literature, Yonsei University<br>
+- **남길임**<br>
+  연세대학교 국어국문학과 교수<br>
   📧 nki@yonsei.ac.kr
 
-- **이수진 (Sujin Lee)**<br>
-  Adjunct Professor, Dept. of Korean Language and Literature | Senior Researcher, Center for Linguistic Informatics, Kyungpook National University<br>
+- **이수진**<br>
+  경북대학교 국어국문학과 외래교수 | 언어정보연구센터 선임연구원<br>
   📧 sjmano27@knu.ac.kr
 
-- **안진산 (Jinsan An)**<br>
-  Adjunct Professor, Dept. of Korean Language and Literature | Researcher, Center for Linguistic Informatics, Kyungpook National University<br>
+- **안진산**<br>
+  경북대학교 국어국문학과 외래교수 | 언어정보연구센터 연구원<br>
   📧 san@knu.ac.kr
 
-- **The survey of Korean neologisms since 2020** has been carried out by **the research team of Prof. Kilim Nam at Yonsei University** and **the Center for Linguistic Informatics at Kyungpook National University**.<br>
-🔗 [Center for Linguistic Informatics, Kyungpook National University](https://home.knu.ac.kr/HOME/corpus/)
+- **2020년 이후 한국어 신어 조사**는 **연세대학교 남길임 교수 연구 팀**과 **경북대학교 언어정보연구센터**에서 수행하였습니다.<br>
+🔗 [경북대학교 언어정보연구센터 홈페이지](https://home.knu.ac.kr/HOME/corpus/)
 
 ---
 
-## 🙇‍♂️ Contributors
+## 🙇‍♂️ 지금까지 기여해 주신 분들
 
-The following experts have contributed to the survey of Korean neologisms since 2020.
+다음 전문가 분들이 2020년 이후 한국어 신어 조사에 기여해 주셨습니다.
 
-- 송현주 (Professor, Dept. of Korean Language Education, Kyungpook National University)
-- 최 준 (Professor, Dept. of Korean Language and Literature, Chonnam National University)
-- 현영희 (Adjunct Professor, Dept. of Korean Language and Literature, Kyungpook National University)
-- 서은영 (Adjunct Professor, Dept. of Korean Language and Literature, Kyungpook National University)
-- 백미경 (Adjunct Professor, Dept. of Korean Language and Literature, Kyungpook National University)
-- 강범일 (Research Professor, Institute of Language and Information Studies, Yonsei University)
-- 고예린 (PhD student, Dept. of Korean Language and Literature, Chonnam National University)
-- 성민규 (PhD student, Dept. of Korean Language and Literature, Yonsei University)
-- 정희윤 (Researcher, NHN)
-- 김해은 (Researcher, National Institute of the Korean Language)
-- 이 준 (MA student, Dept. of Korean Language and Literature, Yonsei University)
-- 남궁설 (MA student, Dept. of Korean Language and Literature, Yonsei University)
+- 송현주 (경북대학교 국어교육과 교수)
+- 최 준 (전남대학교 국어국문학과 교수)
+- 현영희 (경북대학교 국어국문학과 외래교수)
+- 서은영 (경북대학교 국어국문학과 외래교수)
+- 백미경 (경북대학교 국어국문학과 외래교수)
+- 강범일 (연세대학교 언어정보연구원 연구교수)
+- 고예린 (전남대학교 국어국문학과 박사과정)
+- 성민규 (연세대학교 국어국문학과 박사과정)
+- 정희윤 (NHN 연구원)
+- 김해은 (국립국어원 연구원)
+- 이 준 (연세대학교 국어국문학과 석사과정)
+- 남궁설 (연세대학교 국어국문학과 석사과정)
 
-We are deeply grateful to all our contributors.
+모든 기여자 여러분께 깊이 감사드립니다.
