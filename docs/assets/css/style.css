@@ -68,6 +68,9 @@ body {
 
 .nav-links a:hover { color: var(--accent-nova); }
 .nav-links .nav-lang { display:inline-flex; align-items:center; gap:0.35rem; margin-left:0.4rem; padding-left:0.8rem; border-left:1px solid var(--border); }
+.nav-links .nav-kg { display:inline-flex; align-items:center; gap:0.35rem; margin-left:0.4rem; padding-left:0.8rem; border-left:1px solid var(--border); }
+.nav-kg-icon { width:15px; height:15px; flex:0 0 auto; }
+.nav-links .nav-kg-label { font-size:0.85rem; }
 .nav-lang-globe { width:15px; height:15px; flex:0 0 auto; }
 .nav-links .nav-lang-label { font-size:0.85rem; }
 
@@ -806,6 +809,14 @@ main img {
     border-left: none;
     gap: 0.5rem;
   }
+  .nav-links .nav-kg {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+    gap: 0.5rem;
+  }
+  .nav-links .nav-kg-label { font-size: 1rem; }
+  .nav-kg-icon { width: 17px; height: 17px; }
   .nav-links .nav-lang-label { font-size: 1rem; }
   .nav-lang-globe { width: 17px; height: 17px; }
 
