@@ -39,7 +39,7 @@
       <a href="{{ base | append: '/about/' | relative_url }}"{% if u contains '/about' %} class="is-current" aria-current="page"{% endif %}>{{ t.nav.about }}</a>
       <a href="https://github.com/KorNEO/KNO" target="_blank">{{ t.nav.github }}</a>
       <a href="https://korneo.github.io/KNO-KG/" target="_blank" class="nav-kg">
-        <svg class="nav-kg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="5" cy="6" r="2.3"/><circle cx="19" cy="6" r="2.3"/><circle cx="12" cy="18" r="2.3"/><path d="M7.3 6h9.4M6 8.2l4.8 7.6M18 8.2l-4.8 7.6"/></svg>
+        <svg class="nav-kg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="2.4"/><circle cx="4.7" cy="4.7" r="1.9"/><circle cx="19.3" cy="4.7" r="1.9"/><circle cx="4.7" cy="19.3" r="1.9"/><circle cx="19.3" cy="19.3" r="1.9"/><path d="M10.3 10.3 6.1 6.1M13.7 10.3l4.2-4.2M10.3 13.7l-4.2 4.2M13.7 13.7l4.2 4.2"/></svg>
         <span class="nav-kg-label">{{ t.nav.kg }}</span>
       </a>
       {%- if page.alt_url -%}
