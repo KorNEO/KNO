@@ -39,7 +39,7 @@
       <a href="{{ base | append: '/about/' | relative_url }}"{% if u contains '/about' %} class="is-current" aria-current="page"{% endif %}>{{ t.nav.about }}</a>
       <a href="https://github.com/KorNEO/KNO" target="_blank">{{ t.nav.github }}</a>
       <a href="https://korneo.github.io/KNO-KG/" target="_blank" class="nav-kg">
-        <svg class="nav-kg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="2.4"/><circle cx="4.7" cy="4.7" r="1.9"/><circle cx="19.3" cy="4.7" r="1.9"/><circle cx="4.7" cy="19.3" r="1.9"/><circle cx="19.3" cy="19.3" r="1.9"/><path d="M10.3 10.3 6.1 6.1M13.7 10.3l4.2-4.2M10.3 13.7l-4.2 4.2M13.7 13.7l4.2 4.2"/></svg>
+        <svg class="nav-kg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 19a2 2 0 1 0 -4 0a2 2 0 0 0 4 0"/><path d="M18 5a2 2 0 1 0 -4 0a2 2 0 0 0 4 0"/><path d="M10 5a2 2 0 1 0 -4 0a2 2 0 0 0 4 0"/><path d="M6 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0"/><path d="M18 19a2 2 0 1 0 -4 0a2 2 0 0 0 4 0"/><path d="M14 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0"/><path d="M22 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0"/><path d="M6 12h4"/><path d="M14 12h4"/><path d="M15 7l-2 3"/><path d="M9 7l2 3"/><path d="M11 14l-2 3"/><path d="M13 14l2 3"/></svg>
         <span class="nav-kg-label">{{ t.nav.kg }}</span>
       </a>
       {%- if page.alt_url -%}
