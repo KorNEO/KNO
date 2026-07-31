@@ -38,8 +38,10 @@
       <a href="{{ base | append: '/data.html' | relative_url }}"{% if u contains '/data' %} class="is-current" aria-current="page"{% endif %}>{{ t.nav.data }}</a>
       <a href="{{ base | append: '/about/' | relative_url }}"{% if u contains '/about' %} class="is-current" aria-current="page"{% endif %}>{{ t.nav.about }}</a>
       <a href="https://github.com/KorNEO/KNO" target="_blank">{{ t.nav.github }}</a>
-      <span class="nav-sep" aria-hidden="true">|</span>
-      <a href="https://korneo.github.io/KNO-KG/" target="_blank">신어 지식 그래프</a>
+      <a href="https://korneo.github.io/KNO-KG/" target="_blank" class="nav-kg">
+        <svg class="nav-kg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="5" cy="6" r="2.3"/><circle cx="19" cy="6" r="2.3"/><circle cx="12" cy="18" r="2.3"/><path d="M7.3 6h9.4M6 8.2l4.8 7.6M18 8.2l-4.8 7.6"/></svg>
+        <span class="nav-kg-label">{{ t.nav.kg }}</span>
+      </a>
       {%- if page.alt_url -%}
       <a href="{{ page.alt_url | relative_url }}" class="nav-lang" lang="{{ altlang }}" title="{% if lang == 'ko' %}View in English{% else %}한국어로 보기{% endif %}">
         <svg class="nav-lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9z"/></svg>
