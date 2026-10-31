@@ -299,7 +299,7 @@
       var q = $('trendQ').value, key = q.replace(/[\s^-]/g, '');
       var h = byName[q.trim()] || heads.filter(function (x) { return x['등재표제어'].replace(/[\s^-]/g, '') === key || (x['신어'] || '').replace(/[\s^-]/g, '') === key; })[0];
       if (!h) return;
-      trendWord = h['등재표제어']; redraw();
+      trendWord = h['등재표제어']; refreshTrend();
     };
     $('trendQ').onkeydown = function (e) { if (e.key === 'Enter') $('trendBtn').click(); };
     var h = byName[trendWord]; if (!h) return;
@@ -498,7 +498,7 @@
       '<button class="mn-nav mn-l" data-d="-1" aria-label="이전 달"' + (i === 0 ? ' disabled' : '') + '>‹</button>' +
       '<button class="mn-nav mn-r" data-d="1" aria-label="다음 달"' + (i === nM - 1 ? ' disabled' : '') + '>›</button>' +
       '<div class="mn-mid"><div class="mn-ym fk" data-fk="X년 Y월 신어" data-fv="' + months[i].slice(0, 4) + '년 ' + (+months[i].slice(4)) + '월">' + ymLab(i).replace('.', '-') + '</div>' +
-      (cur ? '<div class="mn-top clk-w" data-w="' + esc(cur['등재표제어']) + '">' + esc(mnName(cur)) + '</div><div class="mn-def">' + esc(defOnly(DEFS[cur['등재표제어']])) + '</div>'
+      (cur ? '<div class="mn-top clk-w" data-w="' + esc(cur['등재표제어']) + '">' + esc(mnName(cur)) + '</div><div class="mn-def">' + esc(defOnly(DEFS[cur['등재표제어']])).replace('뜻으로 ', '뜻으로<br>') + '</div>'
            : '<div class="mn-top">–</div>') + '</div>' +
       '<div class="mn-dots">' + months.map(function (_, k) { return '<span class="' + (k === i ? 'on' : '') + '" data-i="' + k + '"></span>'; }).join('') + '</div></div>';
   }
@@ -506,11 +506,11 @@
     // 달을 넘기면 사용 추이도 그 달의 신어로
     var go = function (k) {
       k = Math.max(0, Math.min(nM - 1, k)); if (k === ui.month) return;
-      ui.month = k; var h = monthPick(k); if (h) trendWord = h['등재표제어']; redraw();
+      ui.month = k; var h = monthPick(k); if (h) trendWord = h['등재표제어']; refreshMonth(); refreshTrend();
     };
     Array.prototype.forEach.call(document.querySelectorAll('.mn-nav'), function (b) { b.onclick = function () { go(ui.month + +b.dataset.d); }; });
     Array.prototype.forEach.call(document.querySelectorAll('.mn-peek, .mn-dots span'), function (b) { b.onclick = function () { go(+b.dataset.i); }; });
-    Array.prototype.forEach.call(document.querySelectorAll('.mn-top.clk-w'), function (t) { t.onclick = function () { trendWord = t.dataset.w; redraw(); }; });
+    Array.prototype.forEach.call(document.querySelectorAll('.mn-top.clk-w'), function (t) { t.onclick = function () { trendWord = t.dataset.w; refreshTrend(); }; });
     document.onkeydown = function (e) { if (e.target.tagName === 'INPUT') return; if (e.key === 'ArrowLeft') go(ui.month - 1); if (e.key === 'ArrowRight') go(ui.month + 1); };
     // 표제어가 두 줄로 넘어가지 않게: 한 줄에 들어갈 때까지 글자 크기를 줄인다
     var t = document.querySelector('.mn-card .mn-top');
@@ -630,7 +630,21 @@
     Array.prototype.forEach.call(document.querySelectorAll('#app .fk'), function (el) {
       el.onclick = function (e) { e.stopPropagation(); if (window.goFreq) window.goFreq(el.dataset.fk, el.dataset.fv); };
     });
-    Array.prototype.forEach.call(document.querySelectorAll('#app .kpi-link'), function (el) { el.onclick = function () { trendWord = el.dataset.w; redraw(); }; });
+    Array.prototype.forEach.call(document.querySelectorAll('#app .kpi-link'), function (el) { el.onclick = function () { trendWord = el.dataset.w; refreshTrend(); }; });
+  }
+  // 사용 추이 그래프만 다시 그림 (도넛 등 나머지는 그대로)
+  function refreshTrend() {
+    var el = $('ch-trend'), inst = el && echarts.getInstanceByDom(el);
+    if (inst) { inst.dispose(); charts = charts.filter(function (c) { return c !== inst; }); }
+    mountTrend();
+  }
+  // 이달의 신어 카드만 다시 그림
+  function refreshMonth() {
+    var old = document.querySelector('#app .mn-card'); if (!old) return;
+    var m = old.className.match(/span-\d+/), box = document.createElement('div');
+    box.innerHTML = monthCard(m ? m[0] : 'span-5');
+    old.replaceWith(box.firstElementChild);
+    mountMonth(); bindLinks();
   }
   function redraw() {
     charts.forEach(function (c) { c.dispose(); }); charts = []; pendingDonuts = [];
@@ -639,6 +653,8 @@
     $('app').innerHTML = v.html;
     v.after(); mountDonuts(); mountTrend(); bindLinks();
     Array.prototype.forEach.call(document.querySelectorAll('.dn-lg'), function (lg) {
+      // 좁은 화면(모바일)은 글자를 줄이지 않고 두 줄로 나눔
+      if (lg.clientWidth < 400) { lg.style.flexWrap = 'wrap'; lg.style.whiteSpace = 'normal'; lg.style.fontSize = '13px'; lg.style.rowGap = '4px'; return; }
       var fs = 14; lg.style.fontSize = fs + 'px';
       while (lg.scrollWidth > lg.clientWidth && fs > 10) { fs -= 0.5; lg.style.fontSize = fs + 'px'; }
     });
