@@ -116,6 +116,80 @@ main {
   border-radius: 12px;
 }
 
+.hero-books {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  max-width: 1040px;
+  align-items: flex-start;
+  margin: 0 auto 2.5rem;
+  padding-top: 1rem;
+}
+
+.hero-books > a {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hero-books img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 4px;
+}
+
+.hero-books > a:hover,
+.hero-books > a:focus-visible {
+  transform: translateY(-8px) scale(1.08);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 1;
+}
+
+
+.hero-books > a.hero-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  box-sizing: border-box;
+  aspect-ratio: 816 / 1200;
+  padding: 0;
+  background: #ffffff;
+  border-top: 4px solid #222d6d;
+  border-bottom: 4px solid #222d6d;
+  color: #222d6d;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.hero-cta-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.hero-cta:focus-visible {
+  outline: 2px solid var(--accent-nova);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-books > a,
+  .hero-cta {
+    transition: none;
+  }
+}
+
 .hero h1 {
   font-family: 'Pretendard', sans-serif;
   font-size: 1.6rem;

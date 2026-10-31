@@ -1,0 +1,42 @@
+{%- comment -%} 《신어 2025》 미리 보기 — 대시보드 / 빈도 목록 / 용례 목록 (시안 6) {%- endcomment -%}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Song+Myung&display=swap">
+<link rel="stylesheet" href="{{ '/assets/css/neologism2025.css' | relative_url }}">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<div id="n25">
+<div class="tabs"><button class="tab on" data-pane="dash">대시보드</button><button class="tab" data-pane="freq">빈도 목록</button><button class="tab" data-pane="kwic">용례 목록</button></div>
+<div class="n25-pane" id="pane-dash">
+<div class="filters" id="filters"></div>
+<div class="grid" id="app"></div>
+</div>
+<div class="n25-pane pane-card" id="pane-freq">
+  <div class="kno-search"><input id="freqQ" type="search" autocomplete="off"><button id="freqBtn" type="button">검색</button></div>
+  <div id="freqChip"></div>
+  <table id="neoTable" class="display" style="width:100%;">
+    <thead><tr>
+      <th>표제어</th>
+      <th>X년 Y월 신어</th>
+      <th>신문 말뭉치<br>절대빈도</th><th>댓글 말뭉치<br>절대빈도</th><th>사용의 보편성<br>(장르)</th><th>사용의 보편성<br>(주제)</th>
+      <th>전문 분야</th><th>단어/구</th><th>의미 범주</th><th>총빈도</th><th>id</th>
+    </tr></thead><tbody></tbody>
+  </table>
+</div>
+<div class="n25-pane pane-card" id="pane-kwic">
+  <div class="kno-search"><input id="kwicQ" type="search" list="n25WordsK" autocomplete="off"><button id="kwicBtn" type="button">검색</button></div>
+  <div class="source-tabs"><button class="source-tab kwic-src active" data-src="NN">신문 말뭉치</button><button class="source-tab kwic-src" data-src="YT">댓글 말뭉치</button></div>
+  <div id="kwicLoading" style="display:none;padding:24px;color:var(--text-3)">…</div>
+  <div id="kwicWrap" style="display:none;">
+    <table id="kwicTable" class="display" style="width:100%;">
+      <thead><tr><th>작성일</th><th>장르</th><th>주제</th><th>좌 문맥</th><th>키워드</th><th>우 문맥</th><th>링크</th></tr></thead><tbody></tbody>
+    </table>
+  </div>
+  <datalist id="n25WordsK"></datalist>
+</div>
+</div>
+<script>window.VARIANT = { type: 6 }; window.N25_BASE = '{{ "/assets/data/neologism2025/" | relative_url }}';</script>
+<script src="{{ '/assets/js/neologism2025/xlfilter.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/neologism2025/lists.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/neologism2025/dashboard.js' | relative_url }}"></script>
