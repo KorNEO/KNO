@@ -82,12 +82,12 @@
       var h = D.heads[raw[10]];
       return fk.key === '__all' ? true : h[fk.key] === fk.val;
     });
-    window.xlFilter(freqDT, [0]);   // 머리글 누르면 정렬·값 골라 보기 (표제어는 필터 없음)
+    window.xlFilter(freqDT);   // 머리글 누르면 정렬·값 골라 보기 (표제어 포함)
     addSaveBtn('#pane-freq', 'btnXlsxFreq', 'xlsxCountFreq', freqDT, true, function () {
       return freqDT.rows({ search: 'applied' }).data().toArray().map(function (row) {
         var c = row.map(function (v) { return $('<i>').html(v).text(); });
         var v = function (x) { return x === '–' ? '' : x; };
-        return { '표제어': c[0], 'X년 Y월 신어': c[1], '신문 말뭉치 절대빈도': c[2], '댓글 말뭉치 절대빈도': c[3],
+        return { '표제어': c[0], 'X년 Y월 신어': c[1], '신문 말뭉치(절대빈도)': c[2], '댓글 말뭉치(절대빈도)': c[3],
                  '사용의 보편성(장르)': v(c[4]), '사용의 보편성(주제)': v(c[5]), '전문 분야': v(c[6]), '단어/구': v(c[7]), '의미 범주': v(c[8]) };
       });
     }, function (n) { return 'KNO_신어_검색결과_' + n + '건.xlsx'; });

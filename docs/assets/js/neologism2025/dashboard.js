@@ -515,7 +515,7 @@
     // 표제어가 두 줄로 넘어가지 않게: 한 줄에 들어갈 때까지 글자 크기를 줄인다
     var t = document.querySelector('.mn-card .mn-top');
     if (t) { var fs = 52; t.style.whiteSpace = 'nowrap'; t.style.fontSize = fs + 'px';
-      var box = t.parentNode.clientWidth;
+      var cs = getComputedStyle(t.parentNode), box = t.parentNode.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);   // 안쪽 여백 뺀 폭
       while (t.scrollWidth > box && fs > 24) { fs -= 2; t.style.fontSize = fs + 'px'; } }
   }
   // 조어법·의미 범주·전문 분야: 전체 목록 (카드 안 스크롤), 줄 배경 막대 = 비율
@@ -661,7 +661,7 @@
     if (heads.some(function (h) { return h._m < 0; })) console.error('X년 Y월 신어 누락');
     document.body.insertAdjacentHTML('beforeend', '<datalist id="n25Words">' + heads.map(function (h) { return '<option value="' + esc(disp(h['등재표제어'])) + '">'; }).join('') + '</datalist>');
     filterBar(); redraw();
-    window.N25 = { meta: meta, heads: heads, byName: byName, wordsNN: wordsNN, wordsYT: wordsYT };
+    window.N25 = { meta: meta, heads: heads, byName: byName, wordsNN: wordsNN, wordsYT: wordsYT, defs: DEFS };
     document.dispatchEvent(new Event('n25ready'));
     var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(redraw, 200); });
   });

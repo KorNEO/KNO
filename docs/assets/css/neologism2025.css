@@ -390,6 +390,17 @@
 .xf-qwrap { padding: 4px 12px 6px; }
 .xf-q { width: 100%; box-sizing: border-box; font: inherit; font-size: 13px; height: 30px; padding: 0 8px; border: 1px solid #D1D5DB; border-radius: 4px; outline: none; }
 .xf-q:focus { border-color: #4F46E5; }
+#n25 .mn-card { container-type: inline-size; }
+@container (max-width: 640px) {
+#n25 .mn-peek { display: none; }
+#n25 .mn-mid { padding: 0 56px; }
+#n25 .mn-def { left: 56px; right: 56px; }
+
+}
+@container (max-width: 420px) {
+#n25 .mn-def { -webkit-line-clamp: 4; font-size: 14px; }
+
+}
 #n25 #filters { display: none; }
 #n25 .tab { cursor: pointer; background: none; border: 0; font: inherit; }
 #n25 .n25-pane { display: none; }
