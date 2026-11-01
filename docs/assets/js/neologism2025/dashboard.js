@@ -481,8 +481,10 @@
   // 이달의 신어: 그 달 신어 중 뜻풀이가 있는 것 가운데 총빈도 1위. 양옆에 이전·다음 달을 희미하게
   function monthPick(i) {
     if (i < 0 || i >= nM) return null;
+    // 그 달의 화제성: 그 달 신어(뜻풀이 있는 것) 중 그 달 한 달치 절대빈도(신문+댓글) 1위
+    var mf = function (h) { var m = monthly[h.id]; return m ? m.nn[i] + m.yt[i] : 0; };
     return heads.filter(function (h) { return h._m === i && defOnly(DEFS[h['등재표제어']]); })
-      .sort(function (a, b) { return b['총빈도'] - a['총빈도']; })[0] || null;
+      .sort(function (a, b) { return mf(b) - mf(a); })[0] || null;
   }
   function mnName(h) { return h ? h['등재표제어'].replace(/-/g, '').replace(/\^/g, ' ') : '–'; }
   function monthCard(cls) {
